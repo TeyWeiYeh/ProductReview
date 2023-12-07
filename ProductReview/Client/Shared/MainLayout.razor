@@ -6,8 +6,7 @@
     </div>
 
     <main>
-        <div class="top-row">
-
+        <div class="header">
             <div class="search-bar">
                 <form>
                     <input type="text" name="search" placeholder="Search">
@@ -16,13 +15,14 @@
             </div>
             <div class="header-content">
                 <NavLink class="nav-link" href="favourites" Match="NavLinkMatch.All">
-                    <span class="oi bi-heart" aria-hidden="true"></span>
+                    <span class="oi bi-heart" aria-hidden="true"></span>Favourite
                 </NavLink>
                 <NavLink class="nav-link" href="about-us" Match="NavLinkMatch.All">
                     <span class="oi bi-cursor-fill" aria-hidden="true"></span> About
                 </NavLink>
             </div>
         </div>
+            
         <article class="content px-4">
             @Body
         </article>

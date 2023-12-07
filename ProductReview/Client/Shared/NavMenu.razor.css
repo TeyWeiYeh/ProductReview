@@ -3,12 +3,12 @@
 }
 
 .top-row {
-    
     background-color: rgba(0,0,0,0.4);
 }
 
 .navbar-brand {
     font-size: 1.1rem;
+    
 }
 
 .oi {
@@ -50,7 +50,11 @@
     color: white;
 }
 
-
+.image{
+    background-color:transparent;
+    width: 200px;
+    height: 100px;
+}
 
 
 
