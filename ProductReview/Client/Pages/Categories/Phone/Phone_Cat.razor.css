@@ -1,0 +1,41 @@
+﻿.pb ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    border: 2px solid black;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    background-color: black;
+    padding: 5px;
+}
+
+.pb ul li {
+    border: 2px solid black;
+    width: 200px;
+    text-align: center;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.pb li a{
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    padding: 5px;
+}
+
+.pb li a:hover{
+    border-radius: 20px;
+    background-color: gray;
+}
+
+.pb li:active{
+    background-color: aquamarine;
+}
+
+h3{
+    font-weight: bold;
+}
