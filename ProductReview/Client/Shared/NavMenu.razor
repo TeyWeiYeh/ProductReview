@@ -3,7 +3,7 @@
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href=""><img class="image" src="CWTries.png" alt="Company logo"></a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu"> @* hide/show navigation menu *@
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -15,7 +15,7 @@
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="authentication/profile" Match="NavLinkMatch.All">
-                        <span class="oi oi-person" aria-hidden="true"></span>Hello,@context.User.Identity?.Name
+                        <span class="oi oi-person" aria-hidden="true"></span>Hello,@context.User.Identity?.Name!
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="authentication/login" Match="NavLinkMatch.All">
-                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Login
                     </NavLink>
                 </div>
             </NotAuthorized>
