@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using ProductReview.Server.Data;
 using ProductReview.Server.Models;
 using Microsoft.AspNetCore.Identity;
+using ProductReview.Server.IRepository;
+using ProductReview.Server.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,8 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

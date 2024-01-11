@@ -12,7 +12,7 @@ namespace ProductReview.Server.Configurations.Entities
                 new Category
                 {
                     Id = 1,
-                    Name = "Category 1",
+                    Name = "Phones",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -21,7 +21,7 @@ namespace ProductReview.Server.Configurations.Entities
                 new Category
                 {
                     Id = 2,
-                    Name = "Category 2",
+                    Name = "Laptops",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
