@@ -9,8 +9,7 @@ namespace ProductReview.Shared.Domain
     public class Comment : BaseDomainModel
     {
         public string? Description { get; set; } = String.Empty;
-        public int ReviewId { get; set; }
+        public int? ReviewId { get; set; }
         public virtual Review? Review { get; set; }
-
     }
 }

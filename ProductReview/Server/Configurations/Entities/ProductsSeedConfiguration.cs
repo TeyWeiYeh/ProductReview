@@ -31,7 +31,5 @@ namespace ProductReview.Server.Configurations.Entities
                 }
             );
         }
-
-
     }
 }

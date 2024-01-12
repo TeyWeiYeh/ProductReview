@@ -8,7 +8,7 @@ namespace ProductReview.Shared.Domain
 {
     public class Favourite : BaseDomainModel
     {
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         public virtual Product? Product { get; set; }
     }
 }

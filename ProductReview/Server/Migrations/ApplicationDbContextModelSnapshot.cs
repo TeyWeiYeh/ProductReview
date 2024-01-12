@@ -397,6 +397,26 @@ namespace ProductReview.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5652),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5669),
+                            Name = "Phones",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5674),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5676),
+                            Name = "Laptops",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Comment", b =>
@@ -419,7 +439,7 @@ namespace ProductReview.Server.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReviewId")
+                    b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -430,6 +450,26 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("ReviewId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6365),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6367),
+                            Description = "Comment 1",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6371),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6372),
+                            Description = "Comment 2",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Customer", b =>
@@ -477,7 +517,7 @@ namespace ProductReview.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -515,7 +555,7 @@ namespace ProductReview.Server.Migrations
                     b.Property<string>("PlatformName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -526,6 +566,28 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7624),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7626),
+                            LinkUrl = "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1",
+                            PlatformName = "Amazon",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7629),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7631),
+                            LinkUrl = "https://www.apple.com/iphone-se/",
+                            PlatformName = "Apple",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.News", b =>
@@ -536,7 +598,7 @@ namespace ProductReview.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -562,6 +624,28 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("News");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7997),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7998),
+                            Description = "Apple has confirmed that they will not have iphone 16",
+                            Title = "Apple to skip 16 and jump to 17",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(8002),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(8003),
+                            Description = "Samsung's Z fold 6 design leaked",
+                            Title = "Samsung Z fold 6 leaked",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Product", b =>
@@ -572,7 +656,7 @@ namespace ProductReview.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -601,6 +685,28 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6785),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6787),
+                            Description = "Iphone SE...",
+                            Name = "Iphone SE",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6791),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6792),
+                            Description = "Iphone 13",
+                            Name = "Iphone 13 ",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Review", b =>
@@ -632,8 +738,11 @@ namespace ProductReview.Server.Migrations
                     b.Property<int>("Performance")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -651,6 +760,36 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BatteryLife = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7240),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7242),
+                            Description = "Iphone SE is so ass",
+                            Performance = 1,
+                            Title = "Iphone SE review",
+                            UpdatedBy = "System",
+                            UserFriendly = 1,
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BatteryLife = 5,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7249),
+                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7250),
+                            Description = "Iphone 13 has the best value in 2024",
+                            Performance = 5,
+                            Title = "Iphone 13 review",
+                            UpdatedBy = "System",
+                            UserFriendly = 5,
+                            Value = 5
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Staff", b =>
@@ -733,9 +872,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Review", "Review")
                         .WithMany()
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReviewId");
 
                     b.Navigation("Review");
                 });
@@ -748,9 +885,7 @@ namespace ProductReview.Server.Migrations
 
                     b.HasOne("ProductReview.Shared.Domain.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });
@@ -759,9 +894,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });
@@ -770,9 +903,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
@@ -781,9 +912,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
@@ -796,9 +925,7 @@ namespace ProductReview.Server.Migrations
 
                     b.HasOne("ProductReview.Shared.Domain.Product", "Product")
                         .WithMany("Reviews")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });

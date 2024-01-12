@@ -29,7 +29,7 @@ namespace ProductReview.Server.Configurations.Entities
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 }
-                );
+            );
         }
     }
 }
