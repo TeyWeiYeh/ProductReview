@@ -7,53 +7,53 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductReview.Server.Data;
 using ProductReview.Server.IRepository;
+using ProductReview.Server.Repository;
 using ProductReview.Shared.Domain;
 
 namespace ProductReview.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoriesController(IUnitOfWork unitOfWork)
+        public CommentsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Categories
+        // GET: api/Comments
         [HttpGet]
-        public async Task<IActionResult> GetCategories()
+        public async Task<IActionResult> GetComments()
         {
-          var categories = await _unitOfWork.Categories.GetAll();
-            return Ok(categories);
+          var comments = await _unitOfWork.Comments.GetAll();
+            return Ok(comments);
         }
 
-        // GET: api/Categories/5
+        // GET: api/Comments/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory(int id)
+        public async Task<IActionResult> GetComment(int id)
         {
-            var category = await _unitOfWork.Categories.Get(q => q.Id == id);
-
-            if (category == null)
+            var comment = await _unitOfWork.Comments.Get(q => q.Id == id);
+            if (comment == null)
             {
                 return NotFound();
             }
-            return Ok(category);
+            return Ok(comment);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> PutComment(int id, Comment comment)
         {
-            if (id != category.Id)
+            if (id != comment.Id)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.Categories.Update(category);
+            _unitOfWork.Comments.Update(comment);  
 
             try
             {
@@ -61,7 +61,7 @@ namespace ProductReview.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await CategoryExists(id))
+                if (!await CommentExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,37 @@ namespace ProductReview.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
-            await _unitOfWork.Categories.Insert(category);
+            await _unitOfWork.Comments.Insert(comment);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Comments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var category = await _unitOfWork.Categories.Get(q => q.Id == id);
-            if (category == null)
+           var comment = await _unitOfWork.Comments.Get(q => q.Id == id);
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            await _unitOfWork.Categories.Delete(id);
+            await _unitOfWork.Comments.Delete(id);
             await _unitOfWork.Save(HttpContext);
+
             return NoContent();
         }
 
-        private async Task<bool> CategoryExists(int id)
+        private async Task<bool> CommentExists(int id)
         {
-           var category = await _unitOfWork.Categories.Get(q => q.Id == id);
-            return category != null;
+            var comment = await _unitOfWork.Comments.Get(q => q.Id == id);
+            return comment != null;
         }
     }
 }
