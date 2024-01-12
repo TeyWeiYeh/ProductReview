@@ -397,6 +397,26 @@ namespace ProductReview.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8219),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8233),
+                            Name = "Phones",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8235),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8236),
+                            Name = "Laptops",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Comment", b =>
@@ -419,7 +439,7 @@ namespace ProductReview.Server.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReviewId")
+                    b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -430,6 +450,26 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("ReviewId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8682),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8684),
+                            Description = "Comment 1",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8686),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8686),
+                            Description = "Comment 2",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Customer", b =>
@@ -572,7 +612,7 @@ namespace ProductReview.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -585,12 +625,14 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -601,6 +643,30 @@ namespace ProductReview.Server.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8943),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8944),
+                            Description = "Iphone SE...",
+                            Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
+                            Name = "Iphone SE",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8946),
+                            DateUpdated = new DateTime(2024, 1, 11, 12, 39, 47, 878, DateTimeKind.Local).AddTicks(8947),
+                            Description = "Iphone 13",
+                            Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
+                            Name = "Iphone 13 ",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Review", b =>
@@ -733,9 +799,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Review", "Review")
                         .WithMany()
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReviewId");
 
                     b.Navigation("Review");
                 });
@@ -781,9 +845,7 @@ namespace ProductReview.Server.Migrations
                 {
                     b.HasOne("ProductReview.Shared.Domain.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
