@@ -36,6 +36,9 @@ namespace ProductReview.Server.Data
             builder.ApplyConfiguration(new ReviewsSeedConfiguration());
             builder.ApplyConfiguration(new LinksSeedConfiguration());
             builder.ApplyConfiguration(new NewsSeedConfiguration());
+            builder.ApplyConfiguration(new RoleSeedConfiguration());
+            builder.ApplyConfiguration(new UserSeedConfiguration());
+            builder.ApplyConfiguration(new UserRoleSeedConfiguration());
         }
     }
 }
