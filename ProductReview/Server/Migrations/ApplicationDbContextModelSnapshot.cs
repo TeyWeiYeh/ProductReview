@@ -403,8 +403,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5652),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5669),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8397),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8407),
                             Name = "Phones",
                             UpdatedBy = "System"
                         },
@@ -412,8 +412,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5674),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(5676),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8409),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8410),
                             Name = "Laptops",
                             UpdatedBy = "System"
                         });
@@ -456,8 +456,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6365),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6367),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8751),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8752),
                             Description = "Comment 1",
                             UpdatedBy = "System"
                         },
@@ -465,8 +465,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6371),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6372),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754),
                             Description = "Comment 2",
                             UpdatedBy = "System"
                         });
@@ -572,8 +572,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7624),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7626),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9398),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9399),
                             LinkUrl = "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1",
                             PlatformName = "Amazon",
                             UpdatedBy = "System"
@@ -582,8 +582,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7629),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7631),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9400),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9401),
                             LinkUrl = "https://www.apple.com/iphone-se/",
                             PlatformName = "Apple",
                             UpdatedBy = "System"
@@ -630,8 +630,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7997),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7998),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9578),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9579),
                             Description = "Apple has confirmed that they will not have iphone 16",
                             Title = "Apple to skip 16 and jump to 17",
                             UpdatedBy = "System"
@@ -640,8 +640,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(8002),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(8003),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9580),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9581),
                             Description = "Samsung's Z fold 6 design leaked",
                             Title = "Samsung Z fold 6 leaked",
                             UpdatedBy = "System"
@@ -691,9 +691,10 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6785),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6787),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9018),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9019),
                             Description = "Iphone SE...",
+                            Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone SE",
                             UpdatedBy = "System"
                         },
@@ -701,9 +702,10 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6791),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(6792),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9021),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9022),
                             Description = "Iphone 13",
+                            Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone 13 ",
                             UpdatedBy = "System"
                         });
@@ -767,8 +769,8 @@ namespace ProductReview.Server.Migrations
                             Id = 1,
                             BatteryLife = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7240),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7242),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9208),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9209),
                             Description = "Iphone SE is so ass",
                             Performance = 1,
                             Title = "Iphone SE review",
@@ -781,8 +783,8 @@ namespace ProductReview.Server.Migrations
                             Id = 2,
                             BatteryLife = 5,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7249),
-                            DateUpdated = new DateTime(2024, 1, 11, 13, 9, 55, 423, DateTimeKind.Local).AddTicks(7250),
+                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9211),
+                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9212),
                             Description = "Iphone 13 has the best value in 2024",
                             Performance = 5,
                             Title = "Iphone 13 review",
