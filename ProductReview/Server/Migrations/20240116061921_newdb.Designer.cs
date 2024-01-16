@@ -12,11 +12,7 @@ using ProductReview.Server.Data;
 namespace ProductReview.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-    [Migration("20240112041912_newdb")]
-========
-    [Migration("20240112124632_newdb")]
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+    [Migration("20240116061921_newdb")]
     partial class newdb
     {
         /// <inheritdoc />
@@ -403,7 +399,7 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "41c88b26-250e-4afd-a5df-04441bf9e9b4",
+                            ConcurrencyStamp = "a4c48c45-f6f6-48c3-807a-9fd18dd2c044",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -411,9 +407,9 @@ namespace ProductReview.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEHAZ3mhBGKo1EqRWpYetfl+nxmbj4wcMvhL+ahUn3JqVm0Bmz9lK5+h3Gh6k7v/3Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA5SegFbaFeTVQWirljXQeP9xv9KQSPm64m0X1bgp7uRl3ig+0VbxK+zaYjVHNdrcg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7a08ea41-6b11-49a1-8685-1f849d4c3663",
+                            SecurityStamp = "b19b230e-8aa1-476b-9ce5-d3bd5bdc1ad9",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -451,13 +447,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8397),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8407),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(875),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(887),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3382),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3399),
                             Name = "Phones",
                             UpdatedBy = "System"
                         },
@@ -465,13 +456,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8409),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8410),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(891),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(892),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3400),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3401),
                             Name = "Laptops",
                             UpdatedBy = "System"
                         });
@@ -514,13 +500,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8751),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8752),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1179),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1180),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3760),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3760),
                             Description = "Comment 1",
                             UpdatedBy = "System"
                         },
@@ -528,13 +509,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1182),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1182),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3762),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3762),
                             Description = "Comment 2",
                             UpdatedBy = "System"
                         });
@@ -640,13 +616,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9398),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9399),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1668),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1669),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4596),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4597),
                             LinkUrl = "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1",
                             PlatformName = "Amazon",
                             UpdatedBy = "System"
@@ -655,13 +626,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9400),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9401),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1670),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1671),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4598),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4599),
                             LinkUrl = "https://www.apple.com/iphone-se/",
                             PlatformName = "Apple",
                             UpdatedBy = "System"
@@ -708,13 +674,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9578),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9579),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1824),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1825),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4786),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4786),
                             Description = "Apple has confirmed that they will not have iphone 16",
                             Title = "Apple to skip 16 and jump to 17",
                             UpdatedBy = "System"
@@ -723,13 +684,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9580),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9581),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1826),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1827),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4788),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4788),
                             Description = "Samsung's Z fold 6 design leaked",
                             Title = "Samsung Z fold 6 leaked",
                             UpdatedBy = "System"
@@ -779,13 +735,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9018),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9019),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1349),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1350),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4170),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4172),
                             Description = "Iphone SE...",
                             Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone SE",
@@ -795,13 +746,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9021),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9022),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1352),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1352),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4173),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4174),
                             Description = "Iphone 13",
                             Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone 13 ",
@@ -867,13 +813,8 @@ namespace ProductReview.Server.Migrations
                             Id = 1,
                             BatteryLife = 1,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9208),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9209),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1509),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1510),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4421),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4422),
                             Description = "Iphone SE is so ass",
                             Performance = 1,
                             Title = "Iphone SE review",
@@ -886,13 +827,8 @@ namespace ProductReview.Server.Migrations
                             Id = 2,
                             BatteryLife = 5,
                             CreatedBy = "System",
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.Designer.cs
-                            DateCreated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9211),
-                            DateUpdated = new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9212),
-========
-                            DateCreated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1512),
-                            DateUpdated = new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1513),
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.Designer.cs
+                            DateCreated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4424),
+                            DateUpdated = new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4424),
                             Description = "Iphone 13 has the best value in 2024",
                             Performance = 5,
                             Title = "Iphone 13 review",

@@ -132,8 +132,10 @@ namespace ProductReview.Server.Controllers
 
             //_context.Products.Remove(product);
             //await _context.SaveChangesAsync();
-            await _unitOfWork.Save(HttpContext);
+
             await _unitOfWork.Products.Delete(id);
+            await _unitOfWork.Save(HttpContext);
+            
 
             return NoContent();
         }

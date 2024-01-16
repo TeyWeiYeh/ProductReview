@@ -436,20 +436,15 @@ namespace ProductReview.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "41c88b26-250e-4afd-a5df-04441bf9e9b4", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEEHAZ3mhBGKo1EqRWpYetfl+nxmbj4wcMvhL+ahUn3JqVm0Bmz9lK5+h3Gh6k7v/3Q==", null, false, "7a08ea41-6b11-49a1-8685-1f849d4c3663", false, "admin@localhost.com" });
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "a4c48c45-f6f6-48c3-807a-9fd18dd2c044", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEA5SegFbaFeTVQWirljXQeP9xv9KQSPm64m0X1bgp7uRl3ig+0VbxK+zaYjVHNdrcg==", null, false, "b19b230e-8aa1-476b-9ce5-d3bd5bdc1ad9", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8397), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8407), "Phones", "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8409), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8410), "Laptops", "System" }
-========
-                    { 1, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(875), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(887), "Phones", "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(891), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(892), "Laptops", "System" }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3382), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3399), "Phones", "System" },
+                    { 2, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3400), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3401), "Laptops", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -457,13 +452,8 @@ namespace ProductReview.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Description", "ReviewId", "UpdatedBy" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8751), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8752), "Comment 1", null, "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(8754), "Comment 2", null, "System" }
-========
-                    { 1, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1179), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1180), "Comment 1", null, "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1182), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1182), "Comment 2", null, "System" }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3760), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3760), "Comment 1", null, "System" },
+                    { 2, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3762), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(3762), "Comment 2", null, "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -471,13 +461,8 @@ namespace ProductReview.Server.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "LinkUrl", "PlatformName", "ProductId", "UpdatedBy" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9398), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9399), "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1", "Amazon", null, "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9400), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9401), "https://www.apple.com/iphone-se/", "Apple", null, "System" }
-========
-                    { 1, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1668), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1669), "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1", "Amazon", null, "System" },
-                    { 2, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1670), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1671), "https://www.apple.com/iphone-se/", "Apple", null, "System" }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4596), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4597), "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1", "Amazon", null, "System" },
+                    { 2, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4598), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4599), "https://www.apple.com/iphone-se/", "Apple", null, "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -485,13 +470,8 @@ namespace ProductReview.Server.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Title", "UpdatedBy" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, null, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9578), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9579), "Apple has confirmed that they will not have iphone 16", "Apple to skip 16 and jump to 17", "System" },
-                    { 2, null, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9580), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9581), "Samsung's Z fold 6 design leaked", "Samsung Z fold 6 leaked", "System" }
-========
-                    { 1, null, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1824), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1825), "Apple has confirmed that they will not have iphone 16", "Apple to skip 16 and jump to 17", "System" },
-                    { 2, null, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1826), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1827), "Samsung's Z fold 6 design leaked", "Samsung Z fold 6 leaked", "System" }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, null, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4786), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4786), "Apple has confirmed that they will not have iphone 16", "Apple to skip 16 and jump to 17", "System" },
+                    { 2, null, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4788), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4788), "Samsung's Z fold 6 design leaked", "Samsung Z fold 6 leaked", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -499,13 +479,8 @@ namespace ProductReview.Server.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Image", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, null, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9018), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9019), "Iphone SE...", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone SE", "System" },
-                    { 2, null, "System", new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9021), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9022), "Iphone 13", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone 13 ", "System" }
-========
-                    { 1, null, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1349), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1350), "Iphone SE...", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone SE", "System" },
-                    { 2, null, "System", new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1352), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1352), "Iphone 13", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone 13 ", "System" }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, null, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4170), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4172), "Iphone SE...", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone SE", "System" },
+                    { 2, null, "System", new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4173), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4174), "Iphone 13", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg", "Iphone 13 ", "System" }
                 });
 
             migrationBuilder.InsertData(
@@ -513,13 +488,8 @@ namespace ProductReview.Server.Migrations
                 columns: new[] { "Id", "BatteryLife", "CreatedBy", "CustomerId", "DateCreated", "DateUpdated", "Description", "Performance", "ProductId", "Title", "UpdatedBy", "UserFriendly", "Value" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:ProductReview/Server/Migrations/20240112041912_newdb.cs
-                    { 1, 1, "System", null, new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9208), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9209), "Iphone SE is so ass", 1, null, "Iphone SE review", "System", 1, 1 },
-                    { 2, 5, "System", null, new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9211), new DateTime(2024, 1, 12, 12, 19, 12, 260, DateTimeKind.Local).AddTicks(9212), "Iphone 13 has the best value in 2024", 5, null, "Iphone 13 review", "System", 5, 5 }
-========
-                    { 1, 1, "System", null, new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1509), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1510), "Iphone SE is so ass", 1, null, "Iphone SE review", "System", 1, 1 },
-                    { 2, 5, "System", null, new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1512), new DateTime(2024, 1, 12, 20, 46, 32, 748, DateTimeKind.Local).AddTicks(1513), "Iphone 13 has the best value in 2024", 5, null, "Iphone 13 review", "System", 5, 5 }
->>>>>>>> eb3fbf48bb3251b2483615ac904a14539b2e81d1:ProductReview/Server/Migrations/20240112124632_newdb.cs
+                    { 1, 1, "System", null, new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4421), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4422), "Iphone SE is so ass", 1, null, "Iphone SE review", "System", 1, 1 },
+                    { 2, 5, "System", null, new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4424), new DateTime(2024, 1, 16, 14, 19, 20, 848, DateTimeKind.Local).AddTicks(4424), "Iphone 13 has the best value in 2024", 5, null, "Iphone 13 review", "System", 5, 5 }
                 });
 
             migrationBuilder.InsertData(
