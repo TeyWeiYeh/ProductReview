@@ -26,6 +26,8 @@ namespace ProductReview.Server.Repository
         private IGenericRepository<Review> _reviews;
         private IGenericRepository<Customer> _customers;
         private IGenericRepository<Staff> _staffs;
+        private IGenericRepository<Brand> _brands;
+        private IGenericRepository<Favourite> _favourites;
 
         private UserManager<ApplicationUser> _userManager;
 
@@ -52,6 +54,9 @@ namespace ProductReview.Server.Repository
         public IGenericRepository<Comment> Comments => _comments ??= new GenericRepository<Comment>(_context);
 
         public IGenericRepository<Favourite> Favourites => _favourite ??= new GenericRepository<Favourite>(_context);
+
+        public IGenericRepository<Brand> Brands => _brands ??= new GenericRepository<Brand>(_context);
+
 
         public void Dispose()
         {

@@ -19,5 +19,6 @@ namespace ProductReview.Server.IRepository
         IGenericRepository<Review> Reviews { get; }
         IGenericRepository<Customer> Customers { get; }
         IGenericRepository<Staff> Staffs { get; }
+        IGenericRepository<Brand> Brands { get; }
     }
 }

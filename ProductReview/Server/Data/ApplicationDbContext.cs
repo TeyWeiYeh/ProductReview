@@ -39,6 +39,9 @@ namespace ProductReview.Server.Data
             builder.ApplyConfiguration(new RoleSeedConfiguration());
             builder.ApplyConfiguration(new UserSeedConfiguration());
             builder.ApplyConfiguration(new UserRoleSeedConfiguration());
+            builder.ApplyConfiguration(new BrandsSeedConfiguration());
         }
+
+        public DbSet<ProductReview.Shared.Domain.Brand> Brand { get; set; } = default!;
     }
 }
