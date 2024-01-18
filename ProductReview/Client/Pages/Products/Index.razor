@@ -24,6 +24,7 @@ else
 		<thead>
 			<tr>
 				<th>Product</th>
+				<th>Brand</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -32,6 +33,8 @@ else
 			{
 				<tr>
 					<td>@product.Name</td>
+					<td>@(product.Brand?.Name ?? "No Brand")</td>
+					@*<td>@product.Brand.Name</td>*@
 					<td>
 						<a href="/products/view/@product.Id" class="btn btn-primary">
 							@*buttons*@
@@ -53,9 +56,11 @@ else
 @code {
 	private List<Product>? Products;
 
-	protected async override Task OnInitializedAsync()@*when page is loaded/loading, this method will be called*@
+	protected async override Task OnInitializedAsync()
+	@*when page is loaded/loading, this method will be called*@
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+
 	}
 
 	async Task Delete(int productId)@*pass ID into delete method will delete thingy*@

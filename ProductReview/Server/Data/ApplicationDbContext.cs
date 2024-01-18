@@ -32,7 +32,7 @@ namespace ProductReview.Server.Data
 
             builder.ApplyConfiguration(new CategoriesSeedConfiguration());
             builder.ApplyConfiguration(new CommentsSeedConfiguration());
-            builder.ApplyConfiguration(new ProductsSeedConfiguration());
+            //builder.ApplyConfiguration(new ProductsSeedConfiguration());
             builder.ApplyConfiguration(new ReviewsSeedConfiguration());
             builder.ApplyConfiguration(new LinksSeedConfiguration());
             builder.ApplyConfiguration(new NewsSeedConfiguration());
