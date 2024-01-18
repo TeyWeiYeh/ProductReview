@@ -13,7 +13,7 @@
         public static readonly string FavouritesEndpoint = $"{Prefix}/favourites";
         public static readonly string LinksEndpoint = $"{Prefix}/links";
         public static readonly string StaffsEndpoint = $"{Prefix}/staffs";
-        //public static readonly string BrandsEndpoint = $"{Prefix}/brands";
+        public static readonly string BrandsEndpoint = $"{Prefix}/brands";
 
     }
 }
