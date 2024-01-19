@@ -12,6 +12,7 @@
 	[Parameter] public int id { get; set; }
 
 	Product? product = new Product();
+	Review? review = new Review();
 
 	protected async override Task OnParametersSetAsync()
 	{
