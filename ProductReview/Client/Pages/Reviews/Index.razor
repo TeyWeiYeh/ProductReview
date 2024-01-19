@@ -1,0 +1,87 @@
+﻿@page "/reviews/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+
+<h3>Review</h3>
+
+<a href="/reviews/create" class="btn btn-secondary">
+	<span class="oi oi-plus" ></span>
+	Write a review
+</a>
+<br />
+<br />
+
+@* <RadzenDataGrid AllowAlternatingRows="false" AllowSorting="true" EditMode="DataGridEditMode.Single" Data="Reviews" TItem="Review">
+	<Columns>
+		<RadzenDataGridColumn TItem="Review" Property="Title" Title="Title" Width="200px"></RadzenDataGridColumn>
+		<RadzenDataGridColumn TItem="Review" Property="Description" Title="Desc" Width="200px"></RadzenDataGridColumn>
+		<RadzenButton Click=""></RadzenButton>
+	</Columns>
+</RadzenDataGrid> *@
+
+
+
+@if (Reviews == null)
+{
+	<div class="alert alert-info">Loading Reviews...</div>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Reviews</th>
+				<th>Description</th>
+				<th>Value</th>
+				<th>BatteryLife</th>
+				<th>Performance</th>
+				<th>UserFriendly</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var review in Reviews)
+			{
+				<tr>
+					<td>@review.Title</td>
+					<td>@review.Description</td>
+					<td>@review.Value</td>
+					<td>@review.BatteryLife</td>
+					<td>@review.Performance</td>
+					<td>@review.UserFriendly</td>
+					<td>
+						<button><span>View</span></button>
+						<button><span>Edit</span></button>
+						<button @onclick="@(()=>Delete(review.Id))"><span>Delete</span></button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<Review>? Reviews;
+
+	protected async override Task OnInitializedAsync()
+	{
+		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+	}
+
+    async Task Delete(int reviewId)
+    {
+        if (Reviews != null)
+        {
+            var review = Reviews.First(r => r.Id == reviewId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {review.Title}?");
+            if (confirm)
+            { 
+                await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}"); 
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
