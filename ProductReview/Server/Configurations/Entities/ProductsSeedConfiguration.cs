@@ -14,7 +14,9 @@ namespace ProductReview.Server.Configurations.Entities
                     Id = 1,
                     Name = "Iphone SE",
                     Description = "Iphone SE...",
-                    Image= "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
+                    BrandId = null,
+                    CategoryId = null,
+                    Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -25,13 +27,15 @@ namespace ProductReview.Server.Configurations.Entities
                     Id = 2,
                     Name = "Iphone 13 ",
                     Description = "Iphone 13",
-                    Image= "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
+					BrandId = null,
+					CategoryId = null,
+					Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 }
-            );
+            ) ;
         }
     }
 }

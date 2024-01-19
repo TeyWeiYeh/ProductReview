@@ -39,7 +39,7 @@ namespace ProductReview.Server.Controllers
           //    return NotFound();
           //}
           //  return await _context.Products.ToListAsync();
-          var products = await _unitOfWork.Products.GetAll(includes: q=>q.Include(x=>x.Brand));
+          var products = await _unitOfWork.Products.GetAll(includes: q=>q.Include(x=>x.Brand).Include(x => x.Category));
             return Ok(products);
         }
 

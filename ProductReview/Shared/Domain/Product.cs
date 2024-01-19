@@ -10,6 +10,8 @@
         public int? BrandId { get; set; }
         public virtual Brand? Brand { get; set; }
         //for customer side
+        public int? CategoryId { get; set; }
+        public virtual Category? Category { get; set; }
         public virtual List<Review>? Reviews { get; set; }
     }
 }

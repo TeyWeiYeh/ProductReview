@@ -8,6 +8,6 @@ namespace ProductReview.Shared.Domain
 {
     public class Category : BaseDomainModel
     {
-        public string? Name { get; set; } = String.Empty;
+        public string? Name { get; set; }
     }
 }

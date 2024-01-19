@@ -1,0 +1,26 @@
+﻿@page "/category/edit/{id:int}"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject NavigationManager _navManager
+
+<h3>Edit Category</h3>
+
+<FormComponentC ButtonText="Update" OnValidSubmit="EditCategory" category="category" />
+
+@code {
+	[Parameter] public int id { get; set; }
+
+	Category? category = new Category();
+
+	protected async override Task OnParametersSetAsync()
+	{
+		category = await _client.GetFromJsonAsync<Category>($"{Endpoints.CategoriesEndpoint}/{id}");
+	}
+
+	async Task EditCategory()
+	{
+		await _client.PutAsJsonAsync($"{Endpoints.CategoriesEndpoint}/{id}", category);
+		_navManager.NavigateTo("/category/");
+	}
+}

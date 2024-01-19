@@ -13,7 +13,6 @@ namespace ProductReview.Server.Configurations.Entities
                 {
                     Id = 1,
                     Name = "Apple",
-                    CategoryId = null,
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -23,7 +22,6 @@ namespace ProductReview.Server.Configurations.Entities
                 {
                     Id = 2,
                     Name = "Samsung",
-                    CategoryId = null,
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -33,7 +31,6 @@ namespace ProductReview.Server.Configurations.Entities
                 {
                     Id = 3,
                     Name = "Dell",
-                    CategoryId = null,
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -43,7 +40,6 @@ namespace ProductReview.Server.Configurations.Entities
                 {
                     Id = 4,
                     Name = "HP",
-                    CategoryId = null,
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
