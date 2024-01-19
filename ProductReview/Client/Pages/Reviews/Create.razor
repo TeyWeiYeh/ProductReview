@@ -2,88 +2,9 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
-<h3>Create a review</h3>
-
-<a href="/reviews/create" class="btn btn-secondary">
-	<span class="oi oi-plus"></span>
-	Write a review
-</a>
-<br />
-<br />
-
-<EditForm Model="@review" OnValidSubmit="CreateReview">
-	<DataAnnotationsValidator />
-	<ValidationSummary />
-	<div class="form-group">
-		<label>Product:</label>
-		<InputSelect @bind-Value="@review.ProductId" class="form-control">
-		<option value="">-- Select Product --</option>
-            @if ( Products != null)
-            {
-                foreach (var product in Products)
-                {
-                    <option value="@product.Id">@product.Name</option>
-                }
-            }
-		</InputSelect>
-	</div>
-	<div class="form-group">
-		<label>Review Title:</label>
-		<InputText @bind-Value="@review.Title" class="form-control" />
-		<ValidationMessage For="@(() => review.Title)" />
-	</div>
-	<div class="form-group">
-        <label>Description:</label>
-        <InputText @bind-Value="@review.Description" class="form-control" />
-        <ValidationMessage For="@(() => review.Description)" />
-	</div>
-	<div class="form-group">
-		<label>Value for money:</label>
-		<InputNumber @bind-Value="@review.Value" class="form-control" />
-		<ValidationMessage For="@(() => review.Value)" />
-	</div>
-	<div class="form-group">
-		<label>Battery life:</label>
-		<InputNumber @bind-Value="@review.BatteryLife" class="form-control" />
-		<ValidationMessage For="@(() => review.BatteryLife)" />
-	</div>
-	<div class="form-group">
-		<label>Performance:</label>
-		<InputNumber @bind-Value="@review.Performance" class="form-control" />
-		<ValidationMessage For="@(() => review.Performance)" />
-	</div>
-	<div class="form-group">
-		<label>User Friendliness:</label>
-		<InputNumber @bind-Value="@review.UserFriendly" class="form-control" />
-		<ValidationMessage For="@(() => review.UserFriendly)" />
-	</div>
-	@if (review.Id > 0)
-	{
-		<div class="form-group">
-			<label>Date of comment:</label>
-			<InputDate @bind-Value="@review.DateCreated" class="form-control" />
-			<ValidationMessage For="@(() => review.DateCreated)" />
-		</div>
-	}
-
-	<button type="submit" class="btn btn-success btn-block">
-        Share your review
-	</button>
-</EditForm>
+<h3>Create</h3>
 
 @code {
-	Review? review = new Review();
+    Review review = new Review();
 
-	private IList<Product>? Products;
-
-	protected async override Task OnInitializedAsync()
-	{
-		Products = await _client.GetFromJsonAsync<List<Product>>(Endpoints.ProductsEndpoint);
-	}
-
-	private async Task CreateReview()
-	{
-		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
-		_navManager.NavigateTo("/reviews/");
-	}
 }
