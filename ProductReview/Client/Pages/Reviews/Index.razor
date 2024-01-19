@@ -14,14 +14,6 @@
 <br />
 <br />
 
-@* <RadzenDataGrid AllowAlternatingRows="false" AllowSorting="true" EditMode="DataGridEditMode.Single" Data="Reviews" TItem="Review">
-	<Columns>
-		<RadzenDataGridColumn TItem="Review" Property="Title" Title="Title" Width="200px"></RadzenDataGridColumn>
-		<RadzenDataGridColumn TItem="Review" Property="Description" Title="Desc" Width="200px"></RadzenDataGridColumn>
-		<RadzenButton Click=""></RadzenButton>
-	</Columns>
-</RadzenDataGrid> *@
-
 
 
 @if (Reviews == null)
@@ -39,6 +31,7 @@ else
 				<th>BatteryLife</th>
 				<th>Performance</th>
 				<th>UserFriendly</th>
+				<th>Date posted</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -52,10 +45,16 @@ else
 					<td>@review.BatteryLife</td>
 					<td>@review.Performance</td>
 					<td>@review.UserFriendly</td>
+					<td>@review.DateCreated</td>
 					<td>
-						<button><span>View</span></button>
-						<button><span>Edit</span></button>
-						<button @onclick="@(()=>Delete(review.Id))"><span>Delete</span></button>
+						<a href="/reviews/view/@review.Id" class="btn btn-primary">
+							<span class="oi oi-book"></span>
+						</a>
+						<a href="/reviews/edit/@review.Id" class="btn btn-warning">
+							<span class="oi oi-pencil"></span>	
+						</a>
+
+						<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))"><span class="oi oi-delete"></span></button>
 					</td>
 				</tr>
 			}
@@ -64,7 +63,8 @@ else
 }
 
 @code {
-	private List<Review>? Reviews;
+	private IList<Review>? Reviews;
+	Product product = new Product();
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -84,4 +84,6 @@ else
             }
         }
     }
+
+
 }

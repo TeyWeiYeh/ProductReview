@@ -5,12 +5,37 @@
 <h3>View</h3>
 
 <FormComponent product="product" Disabled="true" />
+
+@foreach (var review in Reviews ?? Enumerable.Empty<Review>())
+{
+	if (review.ProductId == Id){
+        <div>
+            <h4>@review.Title</h4>
+            <p>@review.Description</p>
+            <p>@review.Value</p>
+            <p>@review.BatteryLife</p>
+            <p>@review.Performance</p>
+            <p>@review.UserFriendly</p>
+        </div>
+    }
+}
+
+<a href="/reviews/create/" class="btn btn-secondary">
+	<span class="oi oi-plus"></span>
+	Write a review
+</a>
+<br />
+<br />
+
+
 @code {
 	[Parameter] public int Id { get; set; }
 	Product? product = new Product();
+	private List<Review>? Reviews;
 
 	protected async override Task OnInitializedAsync()
 	{
 		product = await _client.GetFromJsonAsync<Product>($"{Endpoints.ProductsEndpoint}/{Id}");
+		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 	}
 }
