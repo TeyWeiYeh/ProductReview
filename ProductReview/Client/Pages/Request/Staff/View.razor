@@ -1,0 +1,17 @@
+﻿@page "/get_request/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View</h3>
+
+<FormComponent request="request" Disabled="true" />
+
+@code {
+	[Parameter] public int Id { get; set; }
+	Request? request = new Request();
+
+	protected async override Task OnInitializedAsync()
+	{
+		request = await _client.GetFromJsonAsync<Request>($"{Endpoints.RequestsEndpoint}/{Id}");
+	}
+}

@@ -43,5 +43,7 @@ namespace ProductReview.Server.Data
         }
 
         public DbSet<ProductReview.Shared.Domain.Brand> Brand { get; set; } = default!;
+
+        public DbSet<ProductReview.Shared.Domain.Request> Request { get; set; } = default!;
     }
 }

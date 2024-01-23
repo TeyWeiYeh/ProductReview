@@ -1,0 +1,71 @@
+﻿@page "/random"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class="card=title">Random 5s</h3>
+<br />
+
+@if (RandomProducts == null)
+{
+	<div class="alert alert-info">Loading Products...</div>
+}
+else
+{
+	<table class="table table-responsive">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Brand</th>
+				<th>Category</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var product in RandomProducts)
+			{
+				<tr>
+					<td>@product.Name</td>
+					<td>@(product.Brand?.Name ?? "No Brand")</td>
+					<td>@product.Category.Name</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<Product>? Products;
+	private List<Product>? RandomProducts;
+
+	protected async override Task OnInitializedAsync()
+	@*when page is loaded/loading, this method will be called*@
+	{
+		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+
+		if(Products!=null&&Products.Count>0)
+		{
+			Random rand = new Random();
+			RandomProducts=Products.OrderBy(q=>rand.Next()).Take(5).ToList();
+		}
+
+	}
+
+	async Task Delete(int productId)
+	@*pass ID into delete method will delete thingy*@
+	{
+		if (Products != null)
+		{
+			var product = Products.First(q => q.Id == productId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {product.Name}?");
+			// prompts a pop up to confirm deletion of selected make item
+
+			if (confirm)
+			{
+				await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productId}");
+				await OnInitializedAsync();
+			}
+		}
+	}
+
+}

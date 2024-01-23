@@ -1,0 +1,129 @@
+﻿@page "/get_request/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3>Review Requests</h3>
+<br />
+<br />
+
+
+@if (Requests == null)
+{
+	<div class="alert alert-info">Loading Requests...</div>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Review Title</th>
+				<th>Description</th>
+				<th>Value</th>
+				<th>BatteryLife</th>
+				<th>Performance</th>
+				<th>UserFriendly</th>
+				<th>Date posted</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var request in Requests)
+			{
+				<tr>
+					<td>@request.Title</td>
+					<td>@request.Description</td>
+					<td>@request.Value</td>
+					<td>@request.BatteryLife</td>
+					<td>@request.Performance</td>
+					<td>@request.UserFriendly</td>
+					<td>@request.DateCreated</td>
+					<td>
+						<a href="/get_request/view/@request.Id" class="btn btn-primary">
+							<span class="oi oi-book"></span>
+						</a>
+
+						<button class="btn btn-success" @onclick="@(() => UpdateReviewFromRequest(request, request.Id))">
+							<span class="oi oi-check"></span>
+						</button>
+
+						<button class="btn btn-danger" @onclick="@(()=>Delete(request.Id))">
+							<span class="oi oi-delete"></span>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private List<Request>? Requests;
+	// private Request request = new Request();
+	Product product = new Product();
+
+	protected async override Task OnInitializedAsync()
+	{
+		Requests = await _client.GetFromJsonAsync<List<Request>>($"{Endpoints.RequestsEndpoint}");
+	}
+
+	async Task Delete(int requestId)
+	{
+		if (Requests != null)
+		{
+			var request = Requests.First(r => r.Id == requestId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {request.Id}?");
+			if (confirm)
+			{ 
+				await _client.DeleteAsync($"{Endpoints.RequestsEndpoint}/{requestId}"); 
+				await OnInitializedAsync();
+			}
+		}
+	}
+
+	async Task UpdateReviewFromRequest(Request requestToUpdate, int requestId)
+	{
+		// adds variation instead of updatin existing review
+		// Review reviewToUpdate = new Review
+		// 	{
+		// 		Title = requestToUpdate.Title,
+		// 		Description = requestToUpdate.Description,
+		// 		Value = requestToUpdate.Value,
+		// 		BatteryLife = requestToUpdate.BatteryLife,
+		// 		Performance = requestToUpdate.Performance,
+		// 		UserFriendly = requestToUpdate.UserFriendly,
+		// 		DateCreated = DateTime.Now
+		// 	};
+
+		// var response = await _client.PostAsJsonAsync($"{Endpoints.ReviewsEndpoint}", reviewToUpdate);
+
+		// }
+
+		var review=await _client.GetFromJsonAsync<Review>($"{Endpoints.ReviewsEndpoint}/{requestToUpdate.ReviewId}");
+
+		if (review!=null)
+		{
+			review.Title = requestToUpdate.Title;
+			review.Description = requestToUpdate.Description;
+			review.Value = requestToUpdate.Value;
+			review.BatteryLife = requestToUpdate.BatteryLife;
+			review.Performance = requestToUpdate.Performance;
+			review.UserFriendly = requestToUpdate.UserFriendly;
+
+			await _client.PutAsJsonAsync($"{Endpoints.ReviewsEndpoint}/{requestToUpdate.ReviewId}", review);
+			
+			await OnInitializedAsync();
+		}
+
+		if (Requests != null)
+		{
+			var request = Requests.First(r => r.Id == requestId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to accept review?");
+			if (confirm)
+			{
+				await _client.DeleteAsync($"{Endpoints.RequestsEndpoint}/{requestId}");
+				await OnInitializedAsync();
+			}
+		}
+	}
+}
