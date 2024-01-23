@@ -1,34 +1,34 @@
-﻿@page "/categories/phone"
+﻿@page "/categories/phones"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
 @* @attribute [Authorize] *@
 
 <h3><b>Phone brands </b></h3>
 
-<div class="pb">
-    <ul>
-        <li><a class="oi bi-apple" href="/categories/phone/iphone" @onclick="displayList">iPhone</a></li>
-        <li>
-            <NavLink class="nav-link" href="/categories/phone/samsung" Match="NavLinkMatch.All">
-                <span class="oi bi-apple" aria-hidden="true"></span> Samsung
-            </NavLink>
-        </li>
-        <li><a href="/categories/phone/pixel">Pixel</a></li>
-        <li><a href="/categories/phone/huawei">Huawei</a></li>
-        <li><a href="/categories/phone/oppo">Oppo</a></li>
-        
-    </ul>
-</div> 
+
+@if(Brands != null)
+{
+    
+    <div class="pb">
+        <div class="brands">
+        @foreach(var brand in Brands)
+        {
+                <a href="/categories/phone/@brand.Name">@brand.Name</a>
+        }
+        </div>
+    </div>
+}
+
 
 <br />
 
-<h4>@brand</h4>
-
-<button @onclick="displayList">Click me</button>
-
 @code {
-    private string brand = "iphone";
+    private List<Brand>? Brands;
 
-    private void displayList()
+    protected override async Task OnInitializedAsync()
     {
-        brand = "samsung";
+        Brands = await _client.GetFromJsonAsync<List<Brand>>($"{Endpoints.BrandsEndpoint}");
     }
+
 }

@@ -1,4 +1,4 @@
-﻿.pb ul{
+﻿/*.pb ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -40,4 +40,24 @@
     font-weight: 600;
     color: white;
     padding: 5px;
+}*/
+
+a{
+    text-decoration: none;
+    border: 1px solid black;
+}
+
+.brands{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    height: 50px;
+    background-color: powderblue;
+}
+
+.product-details-box {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    display: none;
 }

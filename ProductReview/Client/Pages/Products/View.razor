@@ -8,15 +8,15 @@
 
 @foreach (var review in Reviews ?? Enumerable.Empty<Review>())
 {
-	if (review.ProductId == Id){
-        <div>
-            <h4>@review.Title</h4>
-            <p>@review.Description</p>
-            <p>@review.Value</p>
-            <p>@review.BatteryLife</p>
-            <p>@review.Performance</p>
-            <p>@review.UserFriendly</p>
-        </div>
+	@if (review.ProductId == Id){
+		<br />
+		<div class="card border-success mb-3" style="max-width: 36rem;">
+			<div class="card-header bg-transparent border-success">@review.Title</div>
+			<div class="card-body text-success">
+				<p class="card-text">@review.Description</p>
+			</div>
+			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
+		</div>
     }
 }
 

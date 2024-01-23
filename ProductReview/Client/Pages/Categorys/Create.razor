@@ -1,12 +1,13 @@
 ﻿@page "/category/create"
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject IJSRuntime js
 
 <h3 class="card-title">Add Category</h3>
 <hr />
 <br />
 
-<FormComponentC ButtonText="Add Category" category="category" OnValidSubmit="@CreateCategory" />
+<FormComponent ButtonText="Add Category" category="category" OnValidSubmit="@CreateCategory" />
 
 @code {
 	Category? category = new Category();
@@ -16,4 +17,5 @@
 		await _client.PostAsJsonAsync(Endpoints.CategoriesEndpoint, category);
 		_navManager.NavigateTo("/category");
 	}
+
 }

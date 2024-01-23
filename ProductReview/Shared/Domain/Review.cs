@@ -11,6 +11,7 @@ namespace ProductReview.Shared.Domain
     { 
         public string? Title { get; set; }
         public string? Description { get; set; } 
+        public string? Image { get; set; }
         public int Value { get; set; }
         public int BatteryLife { get; set; }
         public int Performance { get; set; }

@@ -16,13 +16,46 @@
 
 
 
+
+
 @if (Reviews == null)
 {
 	<div class="alert alert-info">Loading Reviews...</div>
 }
 else
 {
-	<table class="table">
+	@foreach (var review in Reviews)
+	{
+		<div class="card border-success mb-3" style="max-width: 36rem;">
+			<div class="card-header bg-transparent border-success"><strong>@review.Title</strong></div>
+			<div class="card-title">
+				<p class="">@review.Description</p>
+				<p>Value:</p>
+				<p class="star-rating" data-rating="@review.Value"></p>
+				<p>Battery Life:</p>
+				<p class="star-rating" data-rating="@review.BatteryLife"></p>
+				<p>Performance:</p>
+				<p class="star-rating" data-rating="@review.Performance"></p>
+				<p>User Friendly:</p>
+				<p class="star-rating" data-rating="@review.UserFriendly"></p>
+			</div>
+			<div class="card-body text-success">
+				<a href="/reviews/view/@review.Id" class="btn btn-primary">
+					@*buttons*@
+					<span class="oi oi-book"></span>@*icon of button*@
+				</a>
+				<a href="/reviews/edit/@review.Id" class="btn btn-warning">
+					<span class="oi oi-pencil"></span>
+				</a>
+				<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))">
+					<span class="oi oi-delete"></span>
+				</button>
+			</div>
+			
+			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
+		</div>
+	}
+	@* <table class="table">
 		<thead>
 			<tr>
 				<th>Reviews</th>
@@ -31,7 +64,7 @@ else
 				<th>BatteryLife</th>
 				<th>Performance</th>
 				<th>UserFriendly</th>
-				<th>Date posted</th>
+				
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -41,11 +74,11 @@ else
 				<tr>
 					<td>@review.Title</td>
 					<td>@review.Description</td>
-					<td>@review.Value</td>
-					<td>@review.BatteryLife</td>
-					<td>@review.Performance</td>
-					<td>@review.UserFriendly</td>
-					<td>@review.DateCreated</td>
+					<td class="star-rating" data-rating="@review.Value"></td>
+					<td class="star-rating" data-rating="@review.BatteryLife"></td>
+					<td class="star-rating" data-rating="@review.Performance"></td>
+					<td class="star-rating" data-rating="@review.UserFriendly"></td>
+					
 					<td>
 						<a href="/reviews/view/@review.Id" class="btn btn-primary">
 							<span class="oi oi-book"></span>
@@ -59,7 +92,7 @@ else
 				</tr>
 			}
 		</tbody>
-	</table>
+	</table> *@
 }
 
 @code {
@@ -71,19 +104,20 @@ else
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 	}
 
-    async Task Delete(int reviewId)
-    {
-        if (Reviews != null)
-        {
-            var review = Reviews.First(r => r.Id == reviewId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {review.Title}?");
-            if (confirm)
-            { 
-                await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}"); 
-                await OnInitializedAsync();
-            }
-        }
-    }
+	async Task Delete(int reviewId)
+	{
+		if (Reviews != null)
+		{
+			var review = Reviews.First(r => r.Id == reviewId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {review.Title}?");
+			if (confirm)
+			{ 
+				await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}"); 
+				await OnInitializedAsync();
+			}
+		}
+	}
+
 
 
 }

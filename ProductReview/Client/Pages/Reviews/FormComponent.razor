@@ -1,6 +1,6 @@
 ﻿@inject HttpClient _client
 
-<EditForm Model="@review" OnValidSubmit="OnValidSubmit">
+<EditForm Model="@review" OnValidSubmit="@OnValidSubmit">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<div class="form-group">
@@ -58,6 +58,8 @@
 	<button type="submit" class="btn btn-success btn-block">
 		@ButtonText
 	</button>
+
+	<BackToList Target="reviews"/>
 </EditForm>
 
 @code {

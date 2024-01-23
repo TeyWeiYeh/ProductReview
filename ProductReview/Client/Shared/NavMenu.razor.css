@@ -59,7 +59,7 @@
 
 
 
-.dropdown .content {
+/*.dropdown .content {
     display:none;
     position: absolute;
     list-style: none;
@@ -88,7 +88,7 @@
 .dropdown span{
     color: aliceblue;
     align-items: center;
-}
+}*/
 
 @media (min-width: 641px) {
     .navbar-toggler {

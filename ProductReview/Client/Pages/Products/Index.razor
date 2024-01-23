@@ -1,4 +1,5 @@
 ﻿@page "/products"
+@page "/products/{searchTerm}"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
@@ -30,7 +31,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var product in Products)
+			@foreach (var product in filteredProducts)
 			{
 				<tr>
 					<td>@product.Name</td>
@@ -55,16 +56,21 @@ else
 }
 
 @code {
+	[Parameter]
+	public string? searchTerm { get; set; }
 	private List<Product>? Products;
+	private List<Product>? filteredProducts;
 
-	protected async override Task OnInitializedAsync()
+	protected async override Task OnParametersSetAsync()
 	@*when page is loaded/loading, this method will be called*@
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+		ApplyFilter();
 
 	}
 
-	async Task Delete(int productId)@*pass ID into delete method will delete thingy*@
+	async Task Delete(int productId)
+	@*pass ID into delete method will delete thingy*@
 	{
 		if (Products != null)
 		{
@@ -78,6 +84,11 @@ else
 				await OnInitializedAsync();
 			}
 		}
+	}
+
+	private void ApplyFilter()
+	{
+		filteredProducts = Products.Where(r => (string.IsNullOrEmpty(searchTerm)) || r.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
 	}
 
 }
