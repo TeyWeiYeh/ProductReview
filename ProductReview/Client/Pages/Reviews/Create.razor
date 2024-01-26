@@ -1,10 +1,13 @@
 ﻿@page "/reviews/create"
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject IJSRuntime js
 
 <h3>Create a review</h3>
 
-<EditForm Model="@review" OnValidSubmit="CreateReview">
+<FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
+
+@* <EditForm Model="@review" OnValidSubmit="CreateReview">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<div class="form-group">
@@ -80,12 +83,13 @@
 	<button type="submit" class="btn btn-success btn-block">
         Share your review
 	</button>
-</EditForm>
+</EditForm> *@
 
 @code {
 	Review? review = new Review();
 
 	private IList<Product>? Products;
+	
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -97,5 +101,7 @@
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
 		_navManager.NavigateTo("/reviews/");
 	}
+
 	
+
 }

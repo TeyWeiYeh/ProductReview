@@ -1,0 +1,49 @@
+﻿.image {
+    height: 500px;
+    width: 100%;
+    
+}
+
+.lead{
+    padding-bottom: 15px;
+}
+
+.details{
+    display:flex;
+    height: 50px;
+    width: 500px;
+    padding: 10px 0px 20px 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.date{
+    padding-left: 10px;
+}
+
+.title h4{
+    font-weight: bold;
+    margin: 20px 0px 15px 0px;
+}
+
+.title p{
+    font-family: 'Georgia', 'Times', 'Times New Roman', serif;
+    margin: 0px;
+}
+
+.title{
+    margin-bottom: 15px;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    padding: 20px;
+}
+
+.news-view a{
+    text-decoration: none;
+}

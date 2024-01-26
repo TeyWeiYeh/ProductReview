@@ -14,10 +14,6 @@
 <br />
 <br />
 
-
-
-
-
 @if (Reviews == null)
 {
 	<div class="alert alert-info">Loading Reviews...</div>
@@ -28,18 +24,21 @@ else
 	{
 		<div class="card border-success mb-3" style="max-width: 36rem;">
 			<div class="card-header bg-transparent border-success"><strong>@review.Title</strong></div>
-			<div class="card-title">
-				<p class="">@review.Description</p>
-				<p>Value:</p>
-				<p class="star-rating" data-rating="@review.Value"></p>
-				<p>Battery Life:</p>
-				<p class="star-rating" data-rating="@review.BatteryLife"></p>
-				<p>Performance:</p>
-				<p class="star-rating" data-rating="@review.Performance"></p>
-				<p>User Friendly:</p>
-				<p class="star-rating" data-rating="@review.UserFriendly"></p>
+			<div class="row-cols-2">
+				<div class="col">
+					<p>@review.Description</p>
+					<label>Value:</label>
+					<p class="star-rating" data-rating="@review.Value"></p>
+					<p>Battery Life:</p>
+					<p class="star-rating" data-rating="@review.BatteryLife"></p>
+					<p>Performance:</p>
+					<p class="star-rating" data-rating="@review.Performance"></p>
+					<p>User Friendly:</p>
+					<p class="star-rating" data-rating="@review.UserFriendly"></p>
+				</div>
 			</div>
-			<div class="card-body text-success">
+			
+			<div class="col">
 				<a href="/reviews/view/@review.Id" class="btn btn-primary">
 					@*buttons*@
 					<span class="oi oi-book"></span>@*icon of button*@
@@ -53,6 +52,11 @@ else
 			</div>
 			
 			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
+			<div class="card-footer bg-transparent border-success">@review.DateUpdated</div>
+			<div class="card-footer bg-transparent border-success">
+				<p class="card-text"><small class="text-muted">@CalculateMinutes(review.DateCreated,review.DateUpdated)</small></p>
+				
+			</div>
 		</div>
 	}
 	@* <table class="table">
@@ -118,6 +122,34 @@ else
 		}
 	}
 
+	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
+	{
+		TimeSpan difference = DateTime.Now - dateUpdated;
 
-
+		if (difference.TotalDays >= 1)
+		{
+			int days = Convert.ToInt32(difference.TotalDays);
+			if (days >= 1 && days < 2)
+			{
+				return $"Last updated: 1 day ago";
+			}
+			else
+			{
+				return $"Last updated: {days} days ago";
+			}
+		}
+		else if (difference.TotalHours >= 1)
+		{
+			return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+		}
+		else if (difference.TotalMinutes >= 1)
+		{
+			return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+		}
+		else
+		{
+			return "Just updated";
+		}
+		
+	}
 }

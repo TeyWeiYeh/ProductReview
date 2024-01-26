@@ -1,0 +1,128 @@
+﻿@page "/news/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+@if(news != null)
+{
+    <div class="news-view">
+        <a href="/" class="bi bi-arrow-left-short">
+            View more news here
+        </a>
+        <br />
+        <br />
+        <div class="title">
+            <h4>@news.Title</h4>
+            <p class="lead">@news.Description</p>
+            <div class="details">
+                <a href="/reviews/" class="btn btn-secondary">Reviews</a>
+                <div class="date">
+                    <p>@CalculateMinutes(news.DateCreated,news.DateUpdated)</p>
+                </div>
+            </div>
+            <div class="actions">
+                <a href="/news/edit/@news.Id" class="btn btn-primary">
+                    <span class="oi oi-pencil"></span>
+                </a>
+            </div>
+        </div>
+        <div class="body">
+            <img class="image" src="@news.Image" alt="Image of news article" />
+            <p>Date posted: @news.DateCreated.ToString("dd/MM/yyyy")</p>
+        </div>
+        <div class="content">
+            <p>
+                Lorem ipsum dolor sit amet. Ut nemo quisquam aut voluptas eligendi quo quia 
+                praesentium non laboriosam veniam At culpa alias. Ad molestias reiciendis ut 
+                quisquam eaque et libero nisi ad quia Quis aut internos inventore aut illum 
+                quasi. Ad ducimus molestias sed recusandae earum in facilis quisquam sit quidem 
+                dolore hic galisum illo quo fuga enim. Rem asperiores ratione et aliquam 
+                aliquam sit numquam porro ab excepturi voluptates et tempora quam ut odit 
+                inventore. Hic animi porro ut esse placeat eum expedita saepe sed ducimus 
+                inventore. Aut culpa aperiam ab nobis accusantium quo pariatur itaque. 
+                Ut magni assumenda ut ullam quia eos sunt mollitia? Rem modi sunt qui 
+                reprehenderit accusantium ut iusto tempore quo sint fuga. 
+                <br />
+                <br />
+                Ea omnis commodi sit molestiae blanditiis cum ullam suscipit est internos sint et error 
+                accusantium! Et eveniet eaque qui illum nihil aut omnis eligendi et vitae 
+                rerum ea optio deleniti? Sit reprehenderit dolore est corrupti beatae est 
+                cupiditate voluptatem est modi galisum et rerum nihil et reiciendis sunt ex 
+                provident voluptatem. Aut eaque rerum 33 omnis earum ex deleniti fugiat ex 
+                nostrum deserunt id voluptas odit. Ad dolore minima qui reiciendis saepe vel 
+                exercitationem cumque qui quia reprehenderit aut alias veritatis aut 
+                voluptatum galisum. Ex voluptatem quidem et quidem error 33 reprehenderit 
+                quidem et aliquid culpa rem numquam illo. Et quia dolorem et cupiditate 
+                impedit qui illo omnis ut asperiores recusandae et soluta totam. In Quis 
+                facilis hic similique obcaecati et unde obcaecati non reprehenderit 
+                voluptatibus ut dolorum dicta At quia nostrum qui ipsum eveniet.
+                <br />
+                <br />
+                Et corporis exercitationem et illo voluptate in quia natus eos ducimus quis 
+                et tempore amet ut quia nemo et ipsam maxime? Eos veniam reprehenderit ea 
+                architecto nesciunt sed consequuntur eligendi ex voluptatem quia aut iste 
+                perferendis. Est voluptate libero 33 debitis minima aut quasi veniam. Cum 
+                adipisci dolorum ut ipsum ullam ea doloremque deserunt. Non deserunt obcaecati 
+                et quasi obcaecati in quidem enim aut deleniti consequatur hic provident 
+                perferendis non nisi quaerat. Et laborum iusto At explicabo dolores non quos 
+                atque ea aliquam inventore. Qui amet nihil eos sunt quibusdam non corrupti 
+                consequuntur sit veritatis natus qui ducimus facere qui illum optio. Non dicta
+                maxime in quis ipsa ea magnam distinctio aut expedita omnis? Et repellat quae 
+                et sunt sint qui earum recusandae et rerum nesciunt in quidem animi et omnis 
+                porro. Et impedit cumque est eveniet voluptas eos similique fuga. Non magni 
+                tenetur vel dolor illum nam minus voluptate At vitae repellendus id accusamus 
+                dignissimos sed cupiditate excepturi. At quibusdam voluptatibus aut nihil 
+                molestiae est amet laborum aut itaque dolorem est harum fugit quo ipsam 
+                dolorum. Ut officiis ipsam ut nemo harum quo quisquam nihil eos galisum 
+                dolores qui culpa nulla. In adipisci perspiciatis sed cupiditate expedita qui 
+                totam consequatur ut repudiandae eligendi rem vitae omnis eos tempora nisi et 
+                porro velit. Ut corrupti molestiae qui maiores perferendis non alias quia sit 
+                galisum corrupti et vero ipsam 33 sapiente possimus. Quo obcaecati temporibus 
+                non velit blanditiis non alias velit ex amet molestiae eos ullam vero ab enim 
+                culpa et omnis minima. Quo odit voluptate et rerum iusto vel eligendi molestiae 
+                et officiis praesentium.
+            </p>
+            <p>@news.Content</p>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    News? news = new News();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        news = await _client.GetFromJsonAsync<News>($"{Endpoints.NewsEndpoint}/{Id}");
+    }
+
+    private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
+    {
+        TimeSpan difference = DateTime.Now - dateUpdated;
+
+        if (difference.TotalDays >= 1)
+        {
+            int days = Convert.ToInt32(difference.TotalDays);
+            if (days >= 1 && days < 2)
+            {
+                return $"Last updated: 1 day ago";
+            }
+            else
+            {
+                return $"Last updated: {days} days ago";
+            }
+        }
+        else if (difference.TotalHours >= 1)
+        {
+            return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+        }
+        else if (difference.TotalMinutes >= 1)
+        {
+            return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+        }
+        else
+        {
+            return "Just updated";
+        }
+
+    }
+}

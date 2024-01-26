@@ -1,3 +1,94 @@
-﻿h1{
-    color:blue;
+﻿*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+.container{
+    position: relative;
+}
+
+.flex-card{
+    display: flex;
+}
+
+.news-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px ;   
+}
+
+.news-group > div {
+    flex: 0 0 calc(33.33% - 20px);
+}
+
+.news-card{
+    border-radius: 10px;
+    height: 320px;
+    width: 250px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 20px;
+}
+
+.news-group-title{
+    display: flex;
+    align-items: center;
+}
+
+.news-card a{
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.desc{
+    position: relative;
+    top: 10px;
+    height: 100px;
+    margin: 5px;
+    overflow: auto;
+}
+
+.desc a{
+    font-size: 15px;
+    color: #808080;
+}
+
+.news-card:hover{
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    color: dodgerblue;
+}
+
+.news-card:hover a{
+    color: dodgerblue;
+}
+
+.news-card img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: fill;
+    height: 150px;
+    width: 100%;
+    background-size: contain;
+}
+
+.news-card .body{
+    position: relative;
+    padding: 5px;
+    top: 5px;
+}
+
+.news-card p{
+    padding-left: 5px;
+    position: relative;
+    font-weight: 500;
+    font-size: 15px;
+    top: 15px;
+}
+
+.container .news-group-title, h4 {
+    margin: 10px;
+    font-size: 18px;
 }

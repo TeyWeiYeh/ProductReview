@@ -1,0 +1,23 @@
+﻿@page "/news/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditNews" news="news" />
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    News? news = new News();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        news = await _client.GetFromJsonAsync<News>($"{Endpoints.NewsEndpoint}/{Id}");
+    } 
+
+    async Task EditNews()
+    {
+        news.DateUpdated = DateTime.Now;
+        await _client.PutAsJsonAsync($"{Endpoints.NewsEndpoint}/{Id}", news);
+        _navManager.NavigateTo("/");
+    }
+}

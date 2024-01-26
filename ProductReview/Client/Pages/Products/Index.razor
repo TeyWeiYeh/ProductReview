@@ -36,7 +36,7 @@ else
 				<tr>
 					<td>@product.Name</td>
 					<td>@(product.Brand?.Name ?? "No Brand")</td>
-					<td>@product.Category.Name</td>
+					<td>@product.Category?.Name</td>
 					<td>
 						<a href="/products/view/@product.Id" class="btn btn-primary">
 							@*buttons*@
@@ -81,7 +81,7 @@ else
 			if (confirm)
 			{
 				await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productId}");
-				await OnInitializedAsync();
+				await OnParametersSetAsync();
 			}
 		}
 	}

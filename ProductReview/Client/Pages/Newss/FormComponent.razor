@@ -1,0 +1,70 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@news" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label>Category:</label>
+        <div>
+            <InputSelect @bind-Value="news.CategoryId" class="form-control">
+                <option value="">-- Select Category --</option>
+                @if (Categories != null)
+                {
+                    foreach (var cat in Categories)
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => news.CategoryId)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>News Title:</label>
+        <InputText @bind-Value="news.Title" class="form-control" />
+        <ValidationMessage For="@(() => news.Title)" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>News Description:</label>
+        <InputText @bind-Value="news.Description" class="form-control" />
+        <ValidationMessage For="@(() => news.Description)" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>News Content:</label>
+        <InputText @bind-Value="news.Content" class="form-control" />
+        <ValidationMessage For="@(() => news.Content)" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label>News Image:</label>
+        <InputText @bind-Value="news.Image" class="form-control" />
+        <ValidationMessage For="@(() => news.Image)" />
+    </div>
+    <br />
+    
+    <button type="submit" class="btn btn-primary">
+        @ButtonText
+    </button>
+
+    <a href="/" class="btn btn-outline-dark btn-block">
+        <span class="oi oi-arrow-left"></span>
+        Back To List
+    </a>
+</EditForm>
+
+@code {
+    [Parameter] public News? news { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public int Id { get; set; }
+
+    private IList<Category>? Categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
+    }
+} 

@@ -4,8 +4,6 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Landing Page</h1>
-
 
 @if(News == null)
 {
@@ -13,27 +11,71 @@
 }
 else
 {
-    @foreach (var news in News)
-    {
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="images/iphone13.jpg" class="img-fluid rounded-start" alt="...">
+    <div class="container">
+        <div class="news-group-title">
+            <i class="bi bi-phone"></i>
+            <h4><strong>SMARTPHONE ARTICLE</strong></h4>
+        </div>
+        <div class="news-group">
+            @foreach (var news in News)
+            {
+            <div class="news-card">
+                <div class="image">
+                    <img src="@news.Image" alt="Image of news article" />
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@news.Title</h5>
-                        <p class="card-text">@news.Description</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="body">
+                    <div class="title">
+                            <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
                     </div>
+                    <div class="desc">
+                        <p>
+                            <a href="/news/view/@news.Id">@news.Description </a>
+                        </p>
+                    </div>
+
                 </div>
             </div>
+            }
         </div>
-    }
+    </div>
+    <div class="container">
+        <div class="news-group-title">
+            <i class="bi bi-laptop"></i>
+            <h4><strong>LAPTOP ARTICLE</strong></h4>
+        </div>
+        <div class="news-group">
+            @foreach (var news in News)
+            {
+                if (news.CategoryId == 2)
+                {
+                    <div class="news-card">
+                        <div class="image">
+                        <img src="@news.Image" alt="Image of news article" />
+                    </div>
+                    <div class="body">
+                        <div class="title">
+                            <strong><a href="/news/@news.Id">@news.Title</a></strong>
+                        </div>
+                        <div class="desc">
+                            <p>
+                                <a href="/news/@news.Id">@news.Description </a>
+                            </p>
+                        </div>
+
+                    </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 }
+
+
+
 
 @code{
     private List<News>? News;
+
     protected async override Task OnInitializedAsync(){
         News = await _client.GetFromJsonAsync<List<News>>($"{Endpoints.NewsEndpoint}");
     }

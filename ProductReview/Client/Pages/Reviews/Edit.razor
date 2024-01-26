@@ -17,6 +17,7 @@
 
     async Task EditReview()
     {
+        review.DateUpdated = DateTime.Now;
         await _client.PutAsJsonAsync($"{Endpoints.ReviewsEndpoint}/{Id}", review);
         _navManager.NavigateTo("/reviews/");
     }

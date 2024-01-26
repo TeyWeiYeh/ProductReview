@@ -1,0 +1,45 @@
+﻿.container{
+    display: flex;
+    padding: 0;
+    align-items: center;
+}
+
+.star-rating{
+    border: 1px solid black;
+    display: flex;
+    padding-left: 10px;
+    flex-direction: row-reverse;
+}
+
+.star-rating > input{
+    display: none;
+}
+
+.star-rating > label:before{
+    content: '\2605';
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.star-rating > label{
+    color: #ddd;
+    float: right;
+}
+
+.star-rating > input:checked ~ label,
+.star-rating:not(:checked) > label:hover,
+.star-rating:not(:checked) > label:hover ~ label
+{
+    color: #2ce679; /* Color for checked or hovered stars */
+}
+
+.star-rating > input:checked + label:hover,
+.star-rating > input:checked ~ label:hover,
+.star-rating > label:hover ~ input:checked ~ label,
+.star-rating > input:checked ~ label:hover ~ label {
+    color: #2ddc76; /* Color for checked and hovered stars */
+}
+
+
+
+
