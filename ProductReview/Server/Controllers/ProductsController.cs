@@ -130,9 +130,18 @@ namespace ProductReview.Server.Controllers
                 return NotFound();
             }
 
-            //_context.Products.Remove(product);
-            //await _context.SaveChangesAsync();
-            await _unitOfWork.Products.Delete(id);
+			// Get all favourites associated with the product
+			var favourites = await _unitOfWork.Favourites.GetAll(f => f.ProductId == id);
+
+			//// Delete all favourites associated with the product
+			foreach (var favourite in favourites)
+			{
+				await _unitOfWork.Favourites.Delete(favourite.Id);
+			}
+
+			//_context.Products.Remove(product);
+			//await _context.SaveChangesAsync();
+			await _unitOfWork.Products.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();

@@ -1,0 +1,72 @@
+﻿@page "/favourites"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class="card=tite">Favourites</h3>
+<br />
+
+@if (Favourites == null)
+{
+	<div class="alert alert-info">Loading Favourites...</div>
+}
+else
+{
+	<table class="table table-responsive">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Brand</th>
+				<th>Category</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var favourite in Favourites)
+			{
+				<tr>
+					<td>@(favourite.Product?.Name?? "no name")</td>
+					<td>@(favourite.Brand?.Name ?? "No Brand")</td>
+					<td>@(favourite.Category?.Name?? "No Category")</td>
+					<td>
+						<button class="btn btn-danger" @onclick="@(()=>Delete(favourite.Id))">
+							<span class="oi oi-delete"></span>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+
+@code {
+	
+	private List<Favourite>? Favourites;
+	private List<Product>? Products;
+	
+
+	protected async override Task OnInitializedAsync()
+	{
+		Favourites = await _client.GetFromJsonAsync<List<Favourite>>($"{Endpoints.FavouritesEndpoint}");
+	
+	}
+
+	async Task Delete(int favouriteId)@*pass ID into delete method will delete thingy*@
+	{
+		if (Favourites != null)
+		{
+			var favourite = Favourites.First(q => q.Id == favouriteId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete favourite?");
+			// prompts a pop up to confirm deletion of selected make item
+
+			if (confirm)
+			{
+				await _client.DeleteAsync($"{Endpoints.FavouritesEndpoint}/{favouriteId}");
+				await OnInitializedAsync();
+			}
+		}
+	}
+
+}

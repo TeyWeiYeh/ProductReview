@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ProductReview.Shared.Domain;
 
 namespace ProductReview.Server.Models
 {
@@ -6,5 +7,6 @@ namespace ProductReview.Server.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        
     }
 }
