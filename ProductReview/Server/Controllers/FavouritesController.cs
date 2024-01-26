@@ -26,7 +26,7 @@ namespace ProductReview.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFavourites()
         {
-          var favourites = await _unitOfWork.Favourites.GetAll();
+          var favourites = await _unitOfWork.Favourites.GetAll(includes: q => q.Include(x => x.Product).Include(x => x.Brand).Include(x => x.Category));
             return Ok(favourites);
         }
 

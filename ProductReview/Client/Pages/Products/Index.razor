@@ -15,6 +15,8 @@
 <br />
 <br />
 
+
+
 @if (Products == null)
 {
 	<div class="alert alert-info">Loading Products...</div>
@@ -48,6 +50,9 @@ else
 						<button class="btn btn-danger" @onclick="@(()=>Delete(product.Id))">
 							<span class="oi oi-delete"></span>
 						</button>
+						<button class="btn btn-danger" @onclick="@(()=>AddToFavourites(product, product.Id))">
+							<span class="oi oi-heart"></span>
+						</button>
 					</td>
 				</tr>
 			}
@@ -60,11 +65,14 @@ else
 	public string? searchTerm { get; set; }
 	private List<Product>? Products;
 	private List<Product>? filteredProducts;
+	private List<Favourite>? Favourites;
+	Product product = new Product();
 
 	protected async override Task OnParametersSetAsync()
 	@*when page is loaded/loading, this method will be called*@
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+
 		ApplyFilter();
 
 	}
@@ -81,7 +89,7 @@ else
 			if (confirm)
 			{
 				await _client.DeleteAsync($"{Endpoints.ProductsEndpoint}/{productId}");
-				await OnInitializedAsync();
+				await OnParametersSetAsync();
 			}
 		}
 	}
@@ -91,4 +99,23 @@ else
 		filteredProducts = Products.Where(r => (string.IsNullOrEmpty(searchTerm)) || r.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
 	}
 
+	async Task AddToFavourites(Product product ,int productId)
+	{
+		var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to add {product.Name} to your favourites?");
+		if (confirm)
+		{
+			Favourite favourite = new Favourite
+				{
+					ProductId = productId,
+					Name = product.Name,
+					BrandId = product.BrandId,
+					CategoryId = product.CategoryId
+				};
+			var response = await _client.PostAsJsonAsync($"{Endpoints.FavouritesEndpoint}", favourite);
+			await OnParametersSetAsync();
+		}
+	}
 }
+
+
+	
