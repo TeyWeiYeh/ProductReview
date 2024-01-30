@@ -5,19 +5,6 @@
 	<ValidationSummary />
 	<fieldset disabled="@Disabled">
 	<div class="form-group">
-		<label>Product:</label>
-		<InputSelect @bind-Value="@review.ProductId" class="form-control">
-			<option value="">-- Select Product --</option>
-			@if (Products != null)
-			{
-				foreach (var product in Products)
-				{
-					<option value="@product.Id">@product.Name</option>
-				}
-			}
-		</InputSelect>
-	</div>
-	<div class="form-group">
 		<label>Review Title:</label>
 		<InputText @bind-Value="@review.Title" class="form-control" />
 		<ValidationMessage For="@(() => review.Title)" />
@@ -27,29 +14,60 @@
 		<InputText @bind-Value="@review.Description" class="form-control" />
 		<ValidationMessage For="@(() => review.Description)" />
 	</div>
-	<div class="container" >
+	<div class="form-group">
 		<label>Value for money:</label>
-		<div class="star-rating">
-			<input type="radio" id="star5" name="rating" value="5" @onchange="()=>UpdateReviewValue(5)"/><label for="star5"></label>
-			<input type="radio" id="star4" name="rating" value="4" @onchange="()=>UpdateReviewValue(4)" /><label for="star4"></label>
-			<input type="radio" id="star3" name="rating" value="3" @onchange="()=>UpdateReviewValue(3)" /><label for="star3"></label>
-			<input type="radio" id="star2" name="rating" value="2" @onchange="()=>UpdateReviewValue(2)" /><label for="star2"></label>
-			<input type="radio" id="star1" name="rating" value="1" @onchange="()=>UpdateReviewValue(1)" /><label for="star1"></label>
+		<div>
+			<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
+				<InputRadio Value="0" data-rating="0" /> 0
+				<InputRadio Value="1" data-rating="1" /> 1
+				<InputRadio Value="2" data-rating="2" /> 2
+				<InputRadio Value="3" data-rating="3" /> 3
+				<InputRadio Value="4" data-rating="4" /> 4
+				<InputRadio Value="5" data-rating="5" /> 5
+			</InputRadioGroup>
+			@* @foreach(var rate in RatingValue)
+			{
+				<div>
+						<span @onclick="() => SetRating(rate)" class="bi bi-star-fill @(review.Value >= rate ? "#FFD700" : "")"></span>
+				</div>
+			} *@
+			<ValidationMessage For="@(() => review.Value)" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label>Battery life:</label>
-		<InputNumber @bind-Value="@review.BatteryLife" class="form-control" />
-		<ValidationMessage For="@(() => review.BatteryLife)" />
+			<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
+				<InputRadio Value="0" data-rating="0" /> 0
+				<InputRadio Value="1" data-rating="1" /> 1
+				<InputRadio Value="2" data-rating="2" /> 2
+				<InputRadio Value="3" data-rating="3" /> 3
+				<InputRadio Value="4" data-rating="4" /> 4
+				<InputRadio Value="5" data-rating="5" /> 5
+			</InputRadioGroup>
+			<ValidationMessage For="@(() => review.BatteryLife)" />
 	</div>
 	<div class="form-group">
 		<label>Performance:</label>
-		<InputNumber @bind-Value="@review.Performance" class="form-control" />
+		<InputRadioGroup @bind-Value="@review.Performance" class="form-control">
+			<InputRadio Value="0" data-rating="0" /> 0
+			<InputRadio Value="1" data-rating="1" /> 1
+			<InputRadio Value="2" data-rating="2" /> 2
+			<InputRadio Value="3" data-rating="3" /> 3
+			<InputRadio Value="4" data-rating="4" /> 4
+			<InputRadio Value="5" data-rating="5" /> 5
+		</InputRadioGroup>
 		<ValidationMessage For="@(() => review.Performance)" />
 	</div>
 	<div class="form-group">
 		<label>User Friendliness:</label>
-		<InputNumber @bind-Value="@review.UserFriendly" class="form-control" />
+		<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
+			<InputRadio Value="0" data-rating="0" /> 0
+			<InputRadio Value="1" data-rating="1" /> 1
+			<InputRadio Value="2" data-rating="2" /> 2
+			<InputRadio Value="3" data-rating="3" /> 3
+			<InputRadio Value="4" data-rating="4" /> 4
+			<InputRadio Value="5" data-rating="5" /> 5
+		</InputRadioGroup>
 		<ValidationMessage For="@(() => review.UserFriendly)" />
 	</div>
 	@if (review.Id > 0 && Disabled)
@@ -80,13 +98,18 @@
 	[Parameter] public EventCallback OnValidSubmit { get; set; }
 	private IList<Product>? Products;
 
+	// List<int> RatingValue = new List<int>
+	// {
+	// 	0,1,2,3,4,5
+	// };
+
 	protected async override Task OnInitializedAsync()
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
 	}
 
-	private void UpdateReviewValue(int value)
-    {
-        review.Value = value;
-    }
+	// private void SetRating(int value)
+ //    {
+ //        review.Value = value;
+ //    }
 }

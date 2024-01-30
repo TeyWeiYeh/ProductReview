@@ -1,0 +1,78 @@
+﻿@page "/news"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
+
+<h3 class="card-title">News</h3>
+
+<a href="/news/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Upload News Article
+</a>
+<br />
+<br />
+
+
+@if(News == null)
+{
+    <div class="alert alert-info">Loading Articles...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var news in News)
+            {
+                <tr>
+                    <td>@news.Title</td>
+                    <td>@news.Description</td>
+                    <td>
+                        <a href="/news/view/@news.Id" class="btn btn-primary">
+                            @*buttons*@
+                            <span class="oi oi-book"></span>@*icon of button*@
+                        </a>
+                        <a href="/news/edit/@news.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(news.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<News>? News;
+
+    protected override async Task OnInitializedAsync()
+    {
+        News = await _client.GetFromJsonAsync<List<News>>($"{Endpoints.NewsEndpoint}");
+    }
+
+    async Task Delete(int newsId)
+    @*pass ID into delete method will delete thingy*@
+    {
+        if (News != null)
+        {
+            var news = News.First(q => q.Id == newsId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {news.Title}?");
+            // prompts a pop up to confirm deletion of selected make item
+
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.NewsEndpoint}/{newsId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+﻿@page "/comments/create/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create Comments</h3>
+
+<EditForm Model="@comment" OnValidSubmit="CreateComment">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label>Description: </label>
+        <InputText @bind-Value="@comment.Description" class="form-control" />
+        <ValidationMessage For="@(() => comment.Description)" />
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block">
+        Create comment
+    </button>
+</EditForm>
+
+@code {
+    Comment comment = new Comment();
+    [Parameter] public int Id { get; set; }
+    private IList<Review>? Reviews;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+    }
+
+    private async Task CreateComment()
+    {
+        comment.ReviewId = Id;
+        await _client.PostAsJsonAsync(Endpoints.CommentsEndpoint, comment);
+        _navManager.NavigateTo($"/reviews/view/{Id}");
+    }
+}

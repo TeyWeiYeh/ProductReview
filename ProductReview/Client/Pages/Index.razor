@@ -1,8 +1,7 @@
 ﻿@page "/"
 @inject HttpClient _client
 @inject NavigationManager _navManager
-
-<PageTitle>Index</PageTitle>
+@attribute [Authorize]
 
 
 @if(News == null)
@@ -19,22 +18,26 @@ else
         <div class="news-group">
             @foreach (var news in News)
             {
-            <div class="news-card">
-                <div class="image">
-                    <img src="@news.Image" alt="Image of news article" />
-                </div>
-                <div class="body">
-                    <div class="title">
-                            <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
-                    </div>
-                    <div class="desc">
-                        <p>
-                            <a href="/news/view/@news.Id">@news.Description </a>
-                        </p>
-                    </div>
+                if (news.CategoryId is 1)
+                {
+                    <div class="news-card">
+                        <div class="image">
+                            <img src="@news.Image" alt="Image of news article" />
+                        </div>
+                        <div class="body">
+                            <div class="title">
+                                <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                            </div>
+                            <div class="desc">
+                                <p>
+                                    <a href="/news/view/@news.Id">@news.Description </a>
+                                </p>
+                            </div>
 
-                </div>
-            </div>
+                        </div>
+                    </div>
+                }
+
             }
         </div>
     </div>

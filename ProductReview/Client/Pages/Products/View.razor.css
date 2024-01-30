@@ -1,13 +1,32 @@
-﻿/**{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
+﻿.star-rating {
+font-size: 24px;
+color: gold;
 }
 
-.review {
-    width:500px;
-    height:1000px;
-    border: 1px solid black;
-}*/
+.star-rating::before {
+    content: '★';
+}
 
+.star-rating[data-rating="0"]::before {
+    content: '☆☆☆☆☆'; /* 5 hollow stars for a rating of 0 */
+}
 
+.star-rating[data-rating="1"]::before {
+    content: '★☆☆☆☆';
+}
+
+.star-rating[data-rating="2"]::before {
+    content: '★★☆☆☆';
+}
+
+.star-rating[data-rating="3"]::before {
+    content: '★★★☆☆';
+}
+
+.star-rating[data-rating="4"]::before {
+    content: '★★★★☆';
+}
+
+.star-rating[data-rating="5"]::before {
+    content: '★★★★★';
+}

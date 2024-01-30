@@ -6,13 +6,67 @@
 
 <FormComponent review="review" ButtonText="Create review" Disabled="true"/>
 
+@if(Comments != null)
+{
+    @foreach(var comment in Comments.Where(c=>c.ReviewId==Id))
+    {
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+            <div class="card-header bg-transparent border-success">Header</div>
+            <div class="card-body text-success">
+                <p class="card-text">@comment.Description</p>
+            </div>
+            <div class="card-footer bg-transparent border-success">@CalculateMinutes(comment.DateCreated,comment.DateUpdated)</div>
+        </div>
+    }
+}
+
+<button @onclick="CreateCommentPage">Write a comment</button>
+
 @code {
     [Parameter]public int Id { get; set; }
+    private List<Comment>? Comments;
 
     Review? review = new Review();
 
     protected async override Task OnParametersSetAsync()
     {
         review = await _client.GetFromJsonAsync<Review>($"{Endpoints.ReviewsEndpoint}/{Id}");
+        Comments = await _client.GetFromJsonAsync<List<Comment>>($"{Endpoints.CommentsEndpoint}");
     }
+
+    private void CreateCommentPage()
+    {
+        _navManager.NavigateTo($"/comments/create/{Id}");
+    }
+
+	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
+	{
+		TimeSpan difference = DateTime.Now - dateUpdated;
+
+		if (difference.TotalDays >= 1)
+		{
+			int days = Convert.ToInt32(difference.TotalDays);
+			if (days >= 1 && days < 2)
+			{
+				return $"Last updated: 1 day ago";
+			}
+			else
+			{
+				return $"Last updated: {days} days ago";
+			}
+		}
+		else if (difference.TotalHours >= 1)
+		{
+			return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+		}
+		else if (difference.TotalMinutes >= 1)
+		{
+			return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+		}
+		else
+		{
+			return "Just posted";
+		}
+
+	}
 }

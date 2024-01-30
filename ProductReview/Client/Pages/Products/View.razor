@@ -13,19 +13,29 @@
 		<div class="card border-success mb-3" style="max-width: 36rem;">
 			<div class="card-header bg-transparent border-success">@review.Title</div>
 			<div class="card-body text-success">
-				<p class="card-text">@review.Description</p>
+				<p>@review.Description</p>
+				<label>Value:</label>
+				<p class="star-rating" data-rating="@review.Value"></p>
+				<p>Battery Life:</p>
+				<p class="star-rating" data-rating="@review.BatteryLife"></p>
+				<p>Performance:</p>
+				<p class="star-rating" data-rating="@review.Performance"></p>
+				<p>User Friendly:</p>
+				<p class="star-rating" data-rating="@review.UserFriendly"></p>
 			</div>
 			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
 		</div>
     }
 }
 
-<a href="/reviews/create/" class="btn btn-secondary">
+<a href="/reviews/create/{Id}" class="btn btn-secondary">
 	<span class="oi oi-plus"></span>
 	Write a review
 </a>
 <br />
 <br />
+
+<button @onclick=ReviewPage>Review page</button>
 
 
 @code {
@@ -38,4 +48,9 @@
 		product = await _client.GetFromJsonAsync<Product>($"{Endpoints.ProductsEndpoint}/{Id}");
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 	}
+
+	private void ReviewPage()
+    {
+        _navManager.NavigateTo($"/reviews/create/{Id}");
+    }
 }

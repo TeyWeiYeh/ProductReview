@@ -1,4 +1,5 @@
-﻿@page "/reviews/create"
+﻿@page "/reviews/create/{id:int}"
+@page "/reviews/create"
 @inject HttpClient _client
 @inject NavigationManager _navManager
 @inject IJSRuntime js
@@ -87,9 +88,10 @@
 
 @code {
 	Review? review = new Review();
+	[Parameter]public int id { get; set; }
 
 	private IList<Product>? Products;
-	
+
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -98,6 +100,7 @@
 
 	private async Task CreateReview()
 	{
+		review.ProductId = id;
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
 		_navManager.NavigateTo("/reviews/");
 	}

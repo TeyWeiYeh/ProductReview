@@ -50,9 +50,6 @@ else
 					<span class="oi oi-delete"></span>
 				</button>
 			</div>
-			
-			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
-			<div class="card-footer bg-transparent border-success">@review.DateUpdated</div>
 			<div class="card-footer bg-transparent border-success">
 				<p class="card-text"><small class="text-muted">@CalculateMinutes(review.DateCreated,review.DateUpdated)</small></p>
 				
@@ -148,7 +145,7 @@ else
 		}
 		else
 		{
-			return "Just updated";
+			return "Just posted";
 		}
 		
 	}
