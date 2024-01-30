@@ -2,6 +2,7 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@implements IDisposable
 
 
 <h3 class="card=tite">Favourites</h3>
@@ -13,7 +14,7 @@
 }
 else
 {
-	<table class="table table-responsive">
+	<table class="table table-responsive" id="favouritesTable">
 		<thead>
 			<tr>
 				<th>Product</th>
@@ -67,6 +68,16 @@ else
 				await OnInitializedAsync();
 			}
 		}
+	}
+
+	protected async override Task OnAfterRenderAsync(bool firstRender)
+	{
+		await js.InvokeVoidAsync("AddDataTable", "#favouritesTable");
+	}
+
+	public void Dispose()
+	{
+		js.InvokeVoidAsync("DataTablesDispose", "#favouritesTable");
 	}
 
 }

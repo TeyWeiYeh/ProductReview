@@ -80,7 +80,18 @@ namespace ProductReview.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Favourite>> PostFavourite(Favourite favourite)
         {
-            await _unitOfWork.Favourites.Insert(favourite);
+
+			// This is done by querying the Favourites repository with a condition that matches the ProductId
+			var existingFavourite = await _unitOfWork.Favourites.Get(q => q.ProductId == favourite.ProductId);
+
+			// If the product is already in the favorites (i.e., existingFavourite is not null)
+			if (existingFavourite != null)
+			{
+				// This informs the client that the product is already in the favorites
+				return Conflict(new { message = "Product is already in favourites" });
+			}
+
+			await _unitOfWork.Favourites.Insert(favourite);
             await _unitOfWork.Save(HttpContext);
 
             return CreatedAtAction("GetFavourite", new { id = favourite.Id }, favourite);

@@ -12,8 +12,8 @@ using ProductReview.Server.Data;
 namespace ProductReview.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126050210_newAttributeNews")]
-    partial class newAttributeNews
+    [Migration("20240130081201_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -399,7 +399,7 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5f269b0d-ae58-40ec-a7b3-47afb8af2704",
+                            ConcurrencyStamp = "f04f854d-dd7b-4101-856f-9f77727b3971",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -407,9 +407,9 @@ namespace ProductReview.Server.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAln3/HgDaAarYpFi/3i6n/2dQLggLBB/vq74M2nsW8udi1XNT7fnn8iFmlrj2ec2A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOuLpcvpDI248WAVJkuvc8DO3//yHyXnZzI6R5y2FHoMTxFpR00pv96bDH2hXPTnyQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5462e527-ba73-47ca-bb4f-980f8f4f96e7",
+                            SecurityStamp = "302a62a4-a866-4afe-83ec-196e27293c61",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -433,6 +433,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -447,8 +448,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(868),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(905),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2368),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2385),
                             Name = "Apple",
                             UpdatedBy = "System"
                         },
@@ -456,8 +457,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(910),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(911),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2387),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2387),
                             Name = "Samsung",
                             UpdatedBy = "System"
                         },
@@ -465,8 +466,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(912),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(913),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2389),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2390),
                             Name = "Dell",
                             UpdatedBy = "System"
                         },
@@ -474,8 +475,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(914),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 577, DateTimeKind.Local).AddTicks(914),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2391),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 310, DateTimeKind.Local).AddTicks(2392),
                             Name = "HP",
                             UpdatedBy = "System"
                         });
@@ -499,6 +500,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -513,8 +515,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8367),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8379),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2120),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2134),
                             Name = "Phones",
                             UpdatedBy = "System"
                         },
@@ -522,8 +524,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8381),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8381),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2136),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2136),
                             Name = "Laptops",
                             UpdatedBy = "System"
                         });
@@ -566,8 +568,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8696),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8697),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2562),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2563),
                             Description = "Comment 1",
                             UpdatedBy = "System"
                         },
@@ -575,8 +577,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8699),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8700),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2564),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2565),
                             Description = "Comment 2",
                             UpdatedBy = "System"
                         });
@@ -615,6 +617,12 @@ namespace ProductReview.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -627,6 +635,15 @@ namespace ProductReview.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
@@ -634,6 +651,10 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CustomerId");
 
@@ -682,8 +703,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9261),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9261),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3245),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3245),
                             LinkUrl = "https://www.amazon.com/New-Simple-Mobile-Prepaid-Product/dp/B0875RK26R/ref=sr_1_1?keywords=iPhone+SE&qid=1704944545&sr=8-1",
                             PlatformName = "Amazon",
                             UpdatedBy = "System"
@@ -692,8 +713,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9263),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9264),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3247),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3248),
                             LinkUrl = "https://www.apple.com/iphone-se/",
                             PlatformName = "Apple",
                             UpdatedBy = "System"
@@ -724,12 +745,14 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -747,8 +770,8 @@ namespace ProductReview.Server.Migrations
                             Id = 1,
                             Content = "Apple has confirmed that they will not have iphone 16 and will jump to 17",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9441),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9442),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3460),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3461),
                             Description = "Apple has confirmed that they will not have iphone 16",
                             Title = "Apple to skip 16 and jump to 17",
                             UpdatedBy = "System"
@@ -758,8 +781,8 @@ namespace ProductReview.Server.Migrations
                             Id = 2,
                             Content = "Samsung's Z fold 6 design leaked and it looks amazing",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9444),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9444),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3463),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3464),
                             Description = "Samsung's Z fold 6 design leaked",
                             Title = "Samsung Z fold 6 leaked",
                             UpdatedBy = "System"
@@ -790,12 +813,14 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -814,8 +839,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8889),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8890),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2801),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2802),
                             Description = "Iphone SE...",
                             Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone SE",
@@ -825,8 +850,8 @@ namespace ProductReview.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8892),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(8892),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2804),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(2805),
                             Description = "Iphone 13",
                             Image = "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.large.jpg",
                             Name = "Iphone 13 ",
@@ -855,6 +880,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAccepted")
@@ -870,6 +896,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -914,6 +941,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
@@ -926,6 +954,7 @@ namespace ProductReview.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -951,8 +980,8 @@ namespace ProductReview.Server.Migrations
                             Id = 1,
                             BatteryLife = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9089),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9090),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3031),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3032),
                             Description = "Iphone SE is so ass",
                             Image = "iphoneSE.jpg",
                             Performance = 1,
@@ -966,8 +995,8 @@ namespace ProductReview.Server.Migrations
                             Id = 2,
                             BatteryLife = 5,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9092),
-                            DateUpdated = new DateTime(2024, 1, 26, 13, 2, 10, 527, DateTimeKind.Local).AddTicks(9093),
+                            DateCreated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3034),
+                            DateUpdated = new DateTime(2024, 1, 30, 16, 12, 1, 229, DateTimeKind.Local).AddTicks(3035),
                             Description = "Iphone 13 has the best value in 2024",
                             Image = "iphone13.jpg",
                             Performance = 5,
@@ -1065,6 +1094,14 @@ namespace ProductReview.Server.Migrations
 
             modelBuilder.Entity("ProductReview.Shared.Domain.Favourite", b =>
                 {
+                    b.HasOne("ProductReview.Shared.Domain.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId");
+
+                    b.HasOne("ProductReview.Shared.Domain.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("ProductReview.Shared.Domain.Customer", null)
                         .WithMany("Favourites")
                         .HasForeignKey("CustomerId");
@@ -1072,6 +1109,10 @@ namespace ProductReview.Server.Migrations
                     b.HasOne("ProductReview.Shared.Domain.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Product");
                 });

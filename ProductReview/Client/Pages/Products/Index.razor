@@ -3,6 +3,7 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@implements IDisposable
 
 
 <h3 class="card=title">Products</h3>
@@ -23,7 +24,7 @@
 }
 else
 {
-	<table class="table table-responsive">
+	<table class="table table-responsive" id="productsTable">
 		<thead>
 			<tr>
 				<th>Product</th>
@@ -38,7 +39,7 @@ else
 				<tr>
 					<td>@product.Name</td>
 					<td>@(product.Brand?.Name ?? "No Brand")</td>
-					<td>@product.Category?.Name</td>
+					<td>@(product.Category?.Name ?? "No Category")</td>
 					<td>
 						<a href="/products/view/@product.Id" class="btn btn-primary">
 							@*buttons*@
@@ -49,9 +50,6 @@ else
 						</a>
 						<button class="btn btn-danger" @onclick="@(()=>Delete(product.Id))">
 							<span class="oi oi-delete"></span>
-						</button>
-						<button class="btn btn-danger" @onclick="@(()=>AddToFavourites(product, product.Id))">
-							<span class="oi oi-heart"></span>
 						</button>
 					</td>
 				</tr>
@@ -99,21 +97,14 @@ else
 		filteredProducts = Products.Where(r => (string.IsNullOrEmpty(searchTerm)) || r.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
 	}
 
-	async Task AddToFavourites(Product product ,int productId)
+	protected async override Task OnAfterRenderAsync(bool firstRender)
 	{
-		var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to add {product.Name} to your favourites?");
-		if (confirm)
-		{
-			Favourite favourite = new Favourite
-				{
-					ProductId = productId,
-					Name = product.Name,
-					BrandId = product.BrandId,
-					CategoryId = product.CategoryId
-				};
-			var response = await _client.PostAsJsonAsync($"{Endpoints.FavouritesEndpoint}", favourite);
-			await OnParametersSetAsync();
-		}
+		await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+	}
+
+	public void Dispose()
+	{
+		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }
 
