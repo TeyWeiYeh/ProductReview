@@ -8,6 +8,8 @@
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
 
+<InputFile OnChange="OnFileChange" />
+
 @* <EditForm Model="@review" OnValidSubmit="CreateReview">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
@@ -105,6 +107,16 @@
 		_navManager.NavigateTo("/reviews/");
 	}
 
-	
+	private async Task OnFileChange(InputFileChangeEventArgs e)
+	{
+		var format = "image/png";
+		var resizedImage = await e.File.RequestImageFileAsync(format, 300, 300);
+		var buffer = new byte[resizedImage.Size];
+		await resizedImage.OpenReadStream().ReadAsync(buffer);
+		var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+		review.Image = imageData;
+
+		Console.WriteLine(review.Image);
+	}
 
 }

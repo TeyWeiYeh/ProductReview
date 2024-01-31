@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ProductReview.Shared.Domain
 {
     public class Review : BaseDomainModel
@@ -13,8 +14,9 @@ namespace ProductReview.Shared.Domain
 		[Required]
 		public string? Title { get; set; }
 		[Required]
-		public string? Description { get; set; } 
-        public string? Image { get; set; }
+		public string? Description { get; set; }
+		//public byte[]? Image { get; set; }
+		public string? Image { get; set; }
 		[Required]
 		public int Value { get; set; }
 		[Required]
