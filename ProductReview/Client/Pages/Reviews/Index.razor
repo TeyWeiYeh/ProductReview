@@ -1,6 +1,7 @@
 ﻿@page "/reviews/"
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 
@@ -27,7 +28,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var review in Reviews)
+			@foreach (var review in Reviews.Where(r=>r.Username==Username))
 			{
 				<tr>
 					<td>@review.Title</td>
@@ -59,7 +60,6 @@ else
 						<a href="/reviews/edit/@review.Id" class="btn btn-warning">
 							<span class="oi oi-pencil"></span>
 						</a>
-
 						<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))"><span class="oi oi-delete"></span></button>
 					</td>
 				</tr>
@@ -73,10 +73,13 @@ else
 @code {
 	private IList<Review>? Reviews;
 	Product product = new Product();
+	public string? Username { get; set; }
 
 	protected async override Task OnInitializedAsync()
 	{
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
 	}
 
 	async Task Delete(int reviewId)
