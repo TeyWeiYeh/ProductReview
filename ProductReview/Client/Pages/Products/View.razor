@@ -1,56 +1,147 @@
 ﻿@page "/products/view/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>View</h3>
+<h3>Viewing @product.Name</h3>
+<h4>Average Rating:</h4>
+
+<br />
+<button @onclick=ReviewPage class="btn btn-secondary">Write a review</button>
+<br/>
 
 <FormComponent product="product" Disabled="true" />
 
+@if(Categories != null)
+{
+	@foreach(var category in Categories.Where(c=>c.Id==product.CategoryId))
+    {
+		<a href="/categories/@category.Name.ToLower()" class="btn btn-secondary">Back to @category.Name page</a>
+    }
+}
+
+
+
+<div class="comment-section">
 @foreach (var review in Reviews ?? Enumerable.Empty<Review>())
 {
 	@if (review.ProductId == Id){
 		<br />
-		<div class="card border-success mb-3" style="max-width: 36rem;">
-			<div class="card-header bg-transparent border-success">@review.Title</div>
+		<div class="container">
+			<div class="title">
+				<i class="bi bi-person-circle"></i>
+				<p>@UserName</p>
+			</div>
+			<div class="body">
+					<p class="star-rating" data-rating="@Convert.ToInt32(Math.Round(CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly)))">@CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly)</p>
+				<div class="content">
+					<a href="/reviews/view/@review.Id">@review.Title</a>
+				</div>
+			</div>
+			<div class="footer">
+					<p class="card-text"><small class="text-muted">@CalculateMinutes(review.DateCreated, review.DateUpdated)</small></p>
+			</div>
+		</div>
+		@* <div class="card border-success mb-3" style="max-width: 36rem;">
+			<div class="card-header bg-transparent border-success"><span class="bi bi-person-circle"></span></div>
 			<div class="card-body text-success">
 				<p>@review.Description</p>
-				<label>Value:</label>
+				<label>Average Value:</label>
+				<p class="star-rating" data-rating="@CalculateAverage(review.Value,review.BatteryLife,review.Performance,review.UserFriendly)"></p>
 				<p class="star-rating" data-rating="@review.Value"></p>
 				<p>Battery Life:</p>
 				<p class="star-rating" data-rating="@review.BatteryLife"></p>
 				<p>Performance:</p>
 				<p class="star-rating" data-rating="@review.Performance"></p>
 				<p>User Friendly:</p>
-				<p class="star-rating" data-rating="@review.UserFriendly"></p>
+				<p class="star-rating" data-rating="@review.UserFriendly"></p> 
 			</div>
-			<div class="card-footer bg-transparent border-success">@review.DateCreated</div>
-		</div>
+			<div class="card-footer bg-transparent border-success">@CalculateMinutes(review.DateCreated,review.DateUpdated)</div>
+		</div> *@
     }
 }
 
-<a href="/reviews/create/{Id}" class="btn btn-secondary">
-	<span class="oi oi-plus"></span>
-	Write a review
-</a>
 <br />
-<br />
+</div>
 
-<button @onclick=ReviewPage>Review page</button>
 
 
 @code {
 	[Parameter] public int Id { get; set; }
 	Product? product = new Product();
 	private List<Review>? Reviews;
+	private List<Category>? Categories;
+	private List<double> AverageRating = new List<double>();
+	private string? UserName;
 
 	protected async override Task OnInitializedAsync()
 	{
 		product = await _client.GetFromJsonAsync<Product>($"{Endpoints.ProductsEndpoint}/{Id}");
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+		Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		UserName = authState.User.Identity.Name;
 	}
 
 	private void ReviewPage()
-    {
-        _navManager.NavigateTo($"/reviews/create/{Id}");
-    }
+	{
+		_navManager.NavigateTo($"/reviews/create/{Id}");
+	}
+
+	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
+	{
+		TimeSpan difference = DateTime.Now - dateUpdated;
+		TimeSpan CheckUpdated = dateCreated - dateUpdated;
+		if (Math.Abs(CheckUpdated.TotalMinutes) < 1)
+		{
+			return $"Posted on: {dateCreated}";
+		}
+		else
+		{
+			if (difference.TotalDays >= 1)
+			{
+				int days = Convert.ToInt32(difference.TotalDays);
+				if (days >= 1 && days < 2)
+				{
+					return $"Last updated: 1 day ago";
+				}
+				else
+				{
+					return $"Last updated: {days} days ago";
+				}
+			}
+			else if (difference.TotalHours >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+			}
+			else if (difference.TotalMinutes >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			}
+			else
+			{
+				return "Just posted";
+			}
+		}
+
+	}
+
+	private double CalculateAverage(int value, int batteryLife, int performance, int userFriendly)
+	{
+		double average = (value + batteryLife + performance + userFriendly) / 4.0;
+		return average;
+	}
+
+	private double CalculateProductAvg(List<double> AverageRating)
+	{
+		double sum = 0;
+
+		foreach (var rating in AverageRating)
+		{
+			sum += rating;
+		}
+
+		double productAvg = sum / AverageRating.Count;
+		return Math.Round(productAvg, MidpointRounding.AwayFromZero);
+	}
 }

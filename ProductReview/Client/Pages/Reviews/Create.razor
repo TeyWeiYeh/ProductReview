@@ -104,7 +104,7 @@
 	{
 		review.ProductId = id;
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
-		_navManager.NavigateTo("/reviews/");
+		_navManager.NavigateTo($"/products/view/{id}");
 	}
 
 	private async Task OnFileChange(InputFileChangeEventArgs e)

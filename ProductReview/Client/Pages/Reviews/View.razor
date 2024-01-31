@@ -1,10 +1,15 @@
 ﻿@page "/reviews/view/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject IJSRuntime js
 
-<h3>View</h3>
+<h3 class="card-title">View</h3>
+
+<button @onclick="CreateCommentPage" class="btn btn-secondary">Write a comment</button>
 
 <FormComponent review="review" ButtonText="Create review" Disabled="true"/>
+
+
 
 @if(Comments != null)
 {
@@ -14,13 +19,21 @@
             <div class="card-header bg-transparent border-success">Header</div>
             <div class="card-body text-success">
                 <p class="card-text">@comment.Description</p>
+				<p class="card-text">
+					<a href="/comments/edit/@comment.Id" class="btn btn-warning">
+						<span class="oi oi-pencil"></span>
+					</a>
+					<button class="btn btn-danger" @onclick="@(()=>Delete(comment.Id))">
+						<span class="oi oi-delete"></span>
+					</button>
+				</p>
             </div>
             <div class="card-footer bg-transparent border-success">@CalculateMinutes(comment.DateCreated,comment.DateUpdated)</div>
         </div>
     }
 }
 
-<button @onclick="CreateCommentPage">Write a comment</button>
+
 
 @code {
     [Parameter]public int Id { get; set; }
@@ -68,5 +81,19 @@
 			return "Just posted";
 		}
 
+	}
+
+	private async Task Delete(int commentId)
+	{
+		if (Comments != null)
+		{
+			var comment = Comments.First(c => c.Id == commentId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {comment.Description}?");
+			if (confirm)
+			{ 
+				await _client.DeleteAsync($"{Endpoints.CommentsEndpoint}/{commentId}"); 
+				await OnParametersSetAsync();
+			}
+		}
 	}
 }
