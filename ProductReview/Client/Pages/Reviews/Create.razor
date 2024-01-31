@@ -9,6 +9,8 @@
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
 
+<InputFile OnChange="OnFileChange" />
+
 @* <EditForm Model="@review" OnValidSubmit="CreateReview">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
@@ -110,4 +112,7 @@
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
 		_navManager.NavigateTo($"/products/view/{id}");
 	}
+
+	
+
 }
