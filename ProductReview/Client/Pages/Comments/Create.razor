@@ -1,6 +1,7 @@
 ﻿@page "/comments/create/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h3 class="card-title">Create Comments</h3>
 
@@ -12,6 +13,7 @@
         <InputText @bind-Value="@comment.Description" class="form-control" />
         <ValidationMessage For="@(() => comment.Description)" />
     </div>
+    <br />
 
     <button type="submit" class="btn btn-success btn-block">
         Create comment
@@ -22,15 +24,19 @@
     Comment comment = new Comment();
     [Parameter] public int Id { get; set; }
     private IList<Review>? Reviews;
+    private string? UserName;
 
     protected override async Task OnInitializedAsync()
     {
         Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        UserName = authState.User.Identity.Name;
     }
 
     private async Task CreateComment()
     {
         comment.ReviewId = Id;
+        comment.Username = UserName;
         await _client.PostAsJsonAsync(Endpoints.CommentsEndpoint, comment);
         _navManager.NavigateTo($"/reviews/view/{Id}");
     }

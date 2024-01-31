@@ -17,13 +17,13 @@
 	<div class="form-group">
 		<label>Value for money:</label>
 		<div>
-			<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
-				<InputRadio Value="0" data-rating="0" /> 0
-				<InputRadio Value="1" data-rating="1" /> 1
-				<InputRadio Value="2" data-rating="2" /> 2
-				<InputRadio Value="3" data-rating="3" /> 3
-				<InputRadio Value="4" data-rating="4" /> 4
-				<InputRadio Value="5" data-rating="5" /> 5
+			<InputRadioGroup @bind-Value="@review.Value" class="form-control">
+				<InputRadio Value="0" /> 0
+				<InputRadio Value="1" /> 1
+				<InputRadio Value="2" /> 2
+				<InputRadio Value="3" /> 3
+				<InputRadio Value="4" /> 4
+				<InputRadio Value="5" /> 5
 			</InputRadioGroup>
 			@* @foreach(var rate in RatingValue)
 			{
@@ -36,39 +36,45 @@
 	</div>
 	<div class="form-group">
 		<label>Battery life:</label>
+		<div>
 			<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
-				<InputRadio Value="0" data-rating="0" /> 0
-				<InputRadio Value="1" data-rating="1" /> 1
-				<InputRadio Value="2" data-rating="2" /> 2
-				<InputRadio Value="3" data-rating="3" /> 3
-				<InputRadio Value="4" data-rating="4" /> 4
-				<InputRadio Value="5" data-rating="5" /> 5
+				<InputRadio Value="0" /> 0
+				<InputRadio Value="1" /> 1
+				<InputRadio Value="2" /> 2
+				<InputRadio Value="3" /> 3
+				<InputRadio Value="4" /> 4
+				<InputRadio Value="5" /> 5
 			</InputRadioGroup>
 			<ValidationMessage For="@(() => review.BatteryLife)" />
+		</div>
 	</div>
 	<div class="form-group">
 		<label>Performance:</label>
-		<InputRadioGroup @bind-Value="@review.Performance" class="form-control">
-			<InputRadio Value="0" data-rating="0" /> 0
-			<InputRadio Value="1" data-rating="1" /> 1
-			<InputRadio Value="2" data-rating="2" /> 2
-			<InputRadio Value="3" data-rating="3" /> 3
-			<InputRadio Value="4" data-rating="4" /> 4
-			<InputRadio Value="5" data-rating="5" /> 5
-		</InputRadioGroup>
-		<ValidationMessage For="@(() => review.Performance)" />
+		<div>
+			<InputRadioGroup @bind-Value="@review.Performance" class="form-control">
+				<InputRadio Value="0" /> 0
+				<InputRadio Value="1" /> 1
+				<InputRadio Value="2" /> 2
+				<InputRadio Value="3" /> 3
+				<InputRadio Value="4" /> 4
+				<InputRadio Value="5" /> 5
+			</InputRadioGroup>
+			<ValidationMessage For="@(() => review.Performance)" />
+		</div>
 	</div>
 	<div class="form-group">
 		<label>User Friendliness:</label>
-		<InputRadioGroup @bind-Value="@review.BatteryLife" class="form-control">
-			<InputRadio Value="0" data-rating="0" /> 0
-			<InputRadio Value="1" data-rating="1" /> 1
-			<InputRadio Value="2" data-rating="2" /> 2
-			<InputRadio Value="3" data-rating="3" /> 3
-			<InputRadio Value="4" data-rating="4" /> 4
-			<InputRadio Value="5" data-rating="5" /> 5
-		</InputRadioGroup>
-		<ValidationMessage For="@(() => review.UserFriendly)" />
+		<div>
+			<InputRadioGroup @bind-Value="@review.UserFriendly" class="form-control">
+				<InputRadio Value="0" /> 0
+				<InputRadio Value="1" /> 1
+				<InputRadio Value="2" /> 2
+				<InputRadio Value="3" /> 3
+				<InputRadio Value="4" /> 4
+				<InputRadio Value="5" /> 5
+			</InputRadioGroup>
+			<ValidationMessage For="@(() => review.UserFriendly)" />
+		</div>
 	</div>
 	@if (review.Id > 0 && Disabled)
 	{
@@ -86,7 +92,6 @@
 			@ButtonText
 		</button>
 	}
-
 
 	<BackToList Target="reviews"/>
 </EditForm>

@@ -1,0 +1,129 @@
+﻿@page "/comments"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
+@implements IDisposable
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3 class="card-title">My Comments</h3>
+
+@if (Comments == null || Reviews == null)
+{
+	<div class="alert alert-info">You have no comments.</div>
+}
+else
+{
+	<table class="table table-responsive" id="productsTable">
+		<thead>
+			<tr>
+				<th>Description</th>
+				<th>Review</th>
+				<th>Date Posted</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var comment in Comments.Where(c => c.Username == UserName))
+			{
+				<tr>
+					<td>@comment.Description</td>
+					<td>@foreach(var reviews in Reviews.Where(c=>c.Id == comment.ReviewId))
+						{
+							@reviews.Title
+						}
+					</td>
+					<td>@CalculateMinutes(comment.DateCreated, comment.DateUpdated)</td>
+					<td>
+						<a href="/reviews/view/@comment.Id" class="btn btn-primary">
+							@*buttons*@
+							<span class="oi oi-book"></span>@*icon of button*@
+						</a>
+						<a href="/comments/edit/@comment.Id" class="btn btn-warning">
+							<span class="oi oi-pencil"></span>
+						</a>
+						<button class="btn btn-danger" @onclick="@(()=>Delete(comment.Id))">
+							<span class="oi oi-delete"></span>
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+} 
+
+@code {
+    private List<Comment>? Comments;
+	private List<Review>? Reviews;
+    private string? UserName;
+	
+
+    protected override async Task OnInitializedAsync()
+    {
+        Comments = await _client.GetFromJsonAsync<List<Comment>>($"{Endpoints.CommentsEndpoint}");
+		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        UserName = authState.User.Identity.Name;
+    }
+
+	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
+	{
+		TimeSpan difference = DateTime.Now - dateUpdated;
+		TimeSpan CheckUpdated = dateCreated - dateUpdated;
+		if (Math.Abs(CheckUpdated.TotalMinutes) < 1)
+		{
+			return $"Posted on: {dateCreated}";
+		}
+		else
+		{
+			if (difference.TotalDays >= 1)
+			{
+				int days = Convert.ToInt32(difference.TotalDays);
+				if (days >= 1 && days < 2)
+				{
+					return $"Last updated: 1 day ago";
+				}
+				else
+				{
+					return $"Last updated: {days} days ago";
+				}
+			}
+			else if (difference.TotalHours >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+			}
+			else if (difference.TotalMinutes >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			}
+			else
+			{
+				return "Just posted";
+			}
+		}
+
+	}
+
+	async Task Delete(int commentId)
+    {
+        if (Comments != null)
+        {
+            var comment = Comments.First(c => c.Id == commentId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {comment.Description}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.CommentsEndpoint}/{commentId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+	protected async override Task OnAfterRenderAsync(bool firstRender)
+	{
+		await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+	}
+
+	public void Dispose()
+	{
+		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
+	}
+}

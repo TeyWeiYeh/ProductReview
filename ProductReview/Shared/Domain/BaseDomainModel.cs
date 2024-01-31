@@ -13,5 +13,6 @@ namespace ProductReview.Shared.Domain
         public DateTime DateUpdated{ get; set; }
         public String? CreatedBy { get; set; }
         public String? UpdatedBy { get; set; }
+        public String? Username { get; set; }
     }
 }

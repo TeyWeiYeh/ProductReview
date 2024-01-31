@@ -31,6 +31,9 @@ else
 					<td>@product.Name</td>
 					<td>@(product.Brand?.Name ?? "No Brand")</td>
 					<td>
+						<a href="/products/view/@product.Id" class="btn btn-primary">
+							<span class="oi oi-book"></span>
+						</a>
 						<button class="btn btn-danger" @onclick="@(()=>AddToFavourites(product, product.Id))">
 							<span class="oi oi-heart"></span>
 						</button>

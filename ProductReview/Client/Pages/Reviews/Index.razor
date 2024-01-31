@@ -5,14 +5,7 @@
 
 
 
-<h3>Review</h3>
-
-<a href="/reviews/create" class="btn btn-secondary">
-	<span class="oi oi-plus" ></span>
-	Write a review
-</a>
-<br />
-<br />
+<h3 class="card-title">My Reviews</h3>
 
 @if (Reviews == null)
 {
@@ -20,43 +13,8 @@
 }
 else
 {
-	@foreach (var review in Reviews)
-	{
-		<div class="card border-success mb-3" style="max-width: 36rem;">
-			<div class="card-header bg-transparent border-success"><strong>@review.Title</strong></div>
-			<div class="row-cols-2">
-				<div class="col">
-					<p>@review.Description</p>
-					<label>Value:</label>
-					<p class="star-rating" data-rating="@review.Value"></p>
-					<p>Battery Life:</p>
-					<p class="star-rating" data-rating="@review.BatteryLife"></p>
-					<p>Performance:</p>
-					<p class="star-rating" data-rating="@review.Performance"></p>
-					<p>User Friendly:</p>
-					<p class="star-rating" data-rating="@review.UserFriendly"></p>
-				</div>
-			</div>
-			
-			<div class="col">
-				<a href="/reviews/view/@review.Id" class="btn btn-primary">
-					@*buttons*@
-					<span class="oi oi-book"></span>@*icon of button*@
-				</a>
-				<a href="/reviews/edit/@review.Id" class="btn btn-warning">
-					<span class="oi oi-pencil"></span>
-				</a>
-				<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))">
-					<span class="oi oi-delete"></span>
-				</button>
-			</div>
-			<div class="card-footer bg-transparent border-success">
-				<p class="card-text"><small class="text-muted">@CalculateMinutes(review.DateCreated,review.DateUpdated)</small></p>
-				
-			</div>
-		</div>
-	}
-	@* <table class="table">
+
+	<table class="table table-responsive" id="productsTable">
 		<thead>
 			<tr>
 				<th>Reviews</th>
@@ -65,7 +23,6 @@ else
 				<th>BatteryLife</th>
 				<th>Performance</th>
 				<th>UserFriendly</th>
-				
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -75,17 +32,32 @@ else
 				<tr>
 					<td>@review.Title</td>
 					<td>@review.Description</td>
-					<td class="star-rating" data-rating="@review.Value"></td>
-					<td class="star-rating" data-rating="@review.BatteryLife"></td>
-					<td class="star-rating" data-rating="@review.Performance"></td>
-					<td class="star-rating" data-rating="@review.UserFriendly"></td>
-					
+					<td class="star-rating" data-rating="@review.Value">
+						<div style="visibility: hidden;">
+							@review.Value
+						</div>
+					</td>
+					<td class="star-rating" data-rating="@review.BatteryLife">
+						<div style="visibility: hidden;">
+							@review.BatteryLife
+						</div>
+					</td>
+					<td class="star-rating" data-rating="@review.Performance">
+						<div style="visibility: hidden;">
+							@review.Performance
+						</div>
+					</td>
+					<td class="star-rating" data-rating="@review.UserFriendly">
+						<div style="visibility: hidden;">
+							@review.UserFriendly
+						</div>
+					</td>
 					<td>
 						<a href="/reviews/view/@review.Id" class="btn btn-primary">
 							<span class="oi oi-book"></span>
 						</a>
 						<a href="/reviews/edit/@review.Id" class="btn btn-warning">
-							<span class="oi oi-pencil"></span>	
+							<span class="oi oi-pencil"></span>
 						</a>
 
 						<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))"><span class="oi oi-delete"></span></button>
@@ -93,7 +65,9 @@ else
 				</tr>
 			}
 		</tbody>
-	</table> *@
+	</table>
+	
+	 
 }
 
 @code {
@@ -122,31 +96,48 @@ else
 	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
 	{
 		TimeSpan difference = DateTime.Now - dateUpdated;
-
-		if (difference.TotalDays >= 1)
+		TimeSpan CheckUpdated = dateCreated - dateUpdated;
+		if (Math.Abs(CheckUpdated.TotalMinutes) < 1)
 		{
-			int days = Convert.ToInt32(difference.TotalDays);
-			if (days >= 1 && days < 2)
-			{
-				return $"Last updated: 1 day ago";
-			}
-			else
-			{
-				return $"Last updated: {days} days ago";
-			}
-		}
-		else if (difference.TotalHours >= 1)
-		{
-			return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
-		}
-		else if (difference.TotalMinutes >= 1)
-		{
-			return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			return $"Posted on: {dateCreated}";
 		}
 		else
 		{
-			return "Just posted";
+			if (difference.TotalDays >= 1)
+			{
+				int days = Convert.ToInt32(difference.TotalDays);
+				if (days >= 1 && days < 2)
+				{
+					return $"Last updated: 1 day ago";
+				}
+				else
+				{
+					return $"Last updated: {days} days ago";
+				}
+			}
+			else if (difference.TotalHours >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+			}
+			else if (difference.TotalMinutes >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			}
+			else
+			{
+				return "Just posted";
+			}
 		}
-		
+
+	}
+
+	protected async override Task OnAfterRenderAsync(bool firstRender)
+	{
+		await js.InvokeVoidAsync("AddDataTable", "#productsTable");
+	}
+
+	public void Dispose()
+	{
+		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }

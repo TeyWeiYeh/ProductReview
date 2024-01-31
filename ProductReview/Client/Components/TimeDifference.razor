@@ -3,30 +3,37 @@
 	private string CalculateMinutes(DateTime dateCreated, DateTime dateUpdated)
 	{
 		TimeSpan difference = DateTime.Now - dateUpdated;
-
-		if (difference.TotalDays >= 1)
+		TimeSpan CheckUpdated = dateCreated - dateUpdated;
+		if (Math.Abs(CheckUpdated.TotalMinutes) < 1)
 		{
-			int days = Convert.ToInt32(difference.TotalDays);
-			if (days >= 1 && days < 2)
-			{
-				return $"Last updated: 1 day ago";
-			}
-			else
-			{
-				return $"Last updated: {days} days ago";
-			}
-		}
-		else if (difference.TotalHours >= 1)
-		{
-			return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
-		}
-		else if (difference.TotalMinutes >= 1)
-		{
-			return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			return $"Posted on: {dateCreated}";
 		}
 		else
 		{
-			return "Just posted";
+			if (difference.TotalDays >= 1)
+			{
+				int days = Convert.ToInt32(difference.TotalDays);
+				if (days >= 1 && days < 2)
+				{
+					return $"Last updated: 1 day ago";
+				}
+				else
+				{
+					return $"Last updated: {days} days ago";
+				}
+			}
+			else if (difference.TotalHours >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.Hours)} hour(s) ago";
+			}
+			else if (difference.TotalMinutes >= 1)
+			{
+				return $"Last updated: {Convert.ToInt32(difference.TotalMinutes)} minute(s) ago";
+			}
+			else
+			{
+				return "Just posted";
+			}
 		}
 
 	}
