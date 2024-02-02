@@ -1,5 +1,38 @@
-﻿<h3>Edit</h3>
+﻿@page "/comments/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+
+<EditForm Model="@comment" OnValidSubmit="EditComment">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label>Description: </label>
+        <InputText @bind-Value="@comment.Description" class="form-control" />
+        <ValidationMessage For="@(() => comment.Description)" />
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-success btn-block">
+        Update comment
+    </button>
+</EditForm>
 
 @code {
+    [Parameter] public int Id { get; set; }
 
+    Comment? comment = new Comment();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        comment = await _client.GetFromJsonAsync<Comment>($"{Endpoints.CommentsEndpoint}/{Id}");
+    }
+
+    async Task EditComment()
+    {
+        comment.DateUpdated = DateTime.Now;
+        await _client.PutAsJsonAsync($"{Endpoints.CommentsEndpoint}/{Id}", comment);
+        _navManager.NavigateTo("/comments");
+    }
 }

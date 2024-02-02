@@ -5,11 +5,33 @@
 @inject IJSRuntime js
 
 <h3>Viewing @product.Name</h3>
-<h4>Average Rating: @CalculateProductAvg(Reviews)</h4>
+
+
+@if (double.IsNaN(@CalculateProductAvg(Reviews)))
+{
+	<h5>Rating: 0.0</h5>
+	<h5>Reviews found: 0</h5>
+}
+else
+{
+	<h5>Rating: @CalculateProductAvg(Reviews)</h5>
+	@if(filteredReviews == null)
+    {
+		<h5>Reviews found: 0</h5>
+	}
+	else
+	{
+		<h5>Reviews found: @filteredReviews.Count</h5>
+	}
+
+}
+
+
 
 <br />
 <button @onclick=ReviewPage class="btn btn-secondary">Write a review</button>
 <br/>
+<br />
 
 <FormComponent product="product" Disabled="true" />
 

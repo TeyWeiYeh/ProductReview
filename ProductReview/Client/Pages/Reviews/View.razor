@@ -2,8 +2,9 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 @inject IJSRuntime js
+@inject AuthenticationStateProvider _authState
 
-<h3 class="card-title">View</h3>
+<h3 class="card-title">Viewing Review by @review.Username</h3>
 
 <button @onclick="CreateCommentPage" class="btn btn-secondary">Write a comment</button>
 <div><img src="@review.Image" width="500" /></div>
@@ -16,16 +17,19 @@
     @foreach(var comment in Comments.Where(c=>c.ReviewId==Id))
     {
         <div class="card border-success mb-3" style="max-width: 18rem;">
-            <div class="card-header bg-transparent border-success">Header</div>
+            <div class="card-header bg-transparent border-success">@comment.Username</div>
             <div class="card-body text-success">
                 <p class="card-text">@comment.Description</p>
 				<p class="card-text">
-					<a href="/comments/edit/@comment.Id" class="btn btn-warning">
-						<span class="oi oi-pencil"></span>
-					</a>
-					<button class="btn btn-danger" @onclick="@(()=>Delete(comment.Id))">
-						<span class="oi oi-delete"></span>
-					</button>
+					@if (comment.Username == Username)
+					{
+						<a href="/comments/edit/@comment.Id" class="btn btn-warning">
+							<span class="oi oi-pencil"></span>
+						</a>
+						<button class="btn btn-danger" @onclick="@(()=>Delete(comment.Id))">
+							<span class="oi oi-delete"></span>
+						</button>
+					}
 				</p>
             </div>
             <div class="card-footer bg-transparent border-success">@CalculateMinutes(comment.DateCreated,comment.DateUpdated)</div>
@@ -38,6 +42,7 @@
 @code {
     [Parameter]public int Id { get; set; }
     private List<Comment>? Comments;
+	private string? Username;
 
     Review? review = new Review();
 
@@ -45,6 +50,8 @@
     {
         review = await _client.GetFromJsonAsync<Review>($"{Endpoints.ReviewsEndpoint}/{Id}");
         Comments = await _client.GetFromJsonAsync<List<Comment>>($"{Endpoints.CommentsEndpoint}");
+		var authState = await _authState.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
     }
 
     private void CreateCommentPage()

@@ -8,6 +8,12 @@
 
 <FormComponent ButtonText="Update" OnValidSubmit="EditProduct" product="product" />
 
+<br />
+<a href="/products/" class="btn btn-outline-dark btn-block">
+	<span class="oi oi-arrow-left"></span>	
+	Back To Products Page
+</a>
+
 @code {
 	[Parameter] public int id { get; set; }
 

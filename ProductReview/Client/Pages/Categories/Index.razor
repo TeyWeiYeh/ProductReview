@@ -5,6 +5,7 @@
 @inject HttpInterceptorService _interceptor
 @* allows the page to be intercepted *@
 @implements IDisposable
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 <h3 class="card=title">Products</h3>
@@ -53,6 +54,7 @@ else
 	private List<Favourite>? Favourites;
 	private List<Category>? Categories;
 	Product? product = new Product();
+	private string? Username;
 
 	protected async override Task OnParametersSetAsync()
 	@*when page is loaded/loading, this method will be called*@
@@ -64,6 +66,8 @@ else
 			string lowerCname = cname.ToLowerInvariant();
 			Products = Products.Where(r => r.Category?.Name.ToLowerInvariant() == cname).ToList();
 		}
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
 	}
 
 	async Task AddToFavourites(Product product, int productId)
@@ -73,11 +77,12 @@ else
 		{
 
 			Favourite favourite = new Favourite
-			{
-			 	ProductId = productId,
-			 	Name = product.Name,
-			 	BrandId = product.BrandId,
-			 	CategoryId = product.CategoryId
+				{
+				ProductId = productId,
+				Name = product.Name,
+				BrandId = product.BrandId,
+				CategoryId = product.CategoryId,
+				Username = Username
 			};
 			var response = await _client.PostAsJsonAsync($"{Endpoints.FavouritesEndpoint}",favourite);
 			// If the response status code is Conflict, it means the product is already in the favorites
@@ -86,6 +91,10 @@ else
 				// Show an alert to the user and return from the method
 				await js.InvokeVoidAsync("alert", $"{product.Name} is already in your favourites!");
 				return;
+			}
+			else
+			{
+				await js.InvokeVoidAsync("alert", $"{product.Name} has been added to favourites");
 			}
 			await OnParametersSetAsync();
 		}

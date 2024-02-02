@@ -1,6 +1,7 @@
 ﻿@page "/favourites"
 @inject HttpClient _client
 @inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 @inject HttpInterceptorService _interceptor
 @* allows the page to be intercepted *@
@@ -26,7 +27,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var favourite in Favourites)
+			@foreach (var favourite in Favourites.Where(q=>q.Username == Username))
 			{
 				<tr>
 					<td>@(favourite.Product?.Name?? "no name")</td>
@@ -48,13 +49,15 @@ else
 
 	private List<Favourite>? Favourites;
 	private List<Product>? Products;
-
+	private string? Username;
+	
 
 	protected async override Task OnInitializedAsync()
 	{
 		_interceptor.MonitorEvent();
 		Favourites = await _client.GetFromJsonAsync<List<Favourite>>($"{Endpoints.FavouritesEndpoint}");
-
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
 	}
 
 	async Task Delete(int favouriteId)

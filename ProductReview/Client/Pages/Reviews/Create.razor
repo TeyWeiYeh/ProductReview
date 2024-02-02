@@ -3,9 +3,11 @@
 @* for staf to create a review *@
 @inject HttpClient _client
 @inject NavigationManager _navManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime js
 
-<h3>Create a review</h3>
+<h3>Write a review</h3>
+<hr />
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
 
@@ -91,19 +93,29 @@
 @code {
 	Review? review = new Review();
 	[Parameter]public int id { get; set; }
+	public string? Username { get; set; }
 
-	private IList<Product>? Products;
+	private List<Product>? Products;
 
 
 	protected async override Task OnInitializedAsync()
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>(Endpoints.ProductsEndpoint);
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
+
 	}
 
 	private async Task CreateReview()
 	{
 		review.ProductId = id;
+		review.Username = Username;
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
+		_navManager.NavigateTo($"/products/view/{id}");
+	}
+
+	private void HandleButton()
+	{
 		_navManager.NavigateTo($"/products/view/{id}");
 	}
 }
