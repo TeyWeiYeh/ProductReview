@@ -3,6 +3,8 @@
 @inject IJSRuntime js
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
 @implements IDisposable
 
 
@@ -44,7 +46,7 @@ else
 
 
 @code {
-	
+
 	private List<Favourite>? Favourites;
 	private List<Product>? Products;
 	private string? Username;
@@ -52,12 +54,14 @@ else
 
 	protected async override Task OnInitializedAsync()
 	{
+		_interceptor.MonitorEvent();
 		Favourites = await _client.GetFromJsonAsync<List<Favourite>>($"{Endpoints.FavouritesEndpoint}");
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		Username = authState.User.Identity.Name;
 	}
 
-	async Task Delete(int favouriteId)@*pass ID into delete method will delete thingy*@
+	async Task Delete(int favouriteId)
+	@*pass ID into delete method will delete thingy*@
 	{
 		if (Favourites != null)
 		{
@@ -80,6 +84,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#favouritesTable");
 	}
 

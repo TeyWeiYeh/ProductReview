@@ -2,6 +2,8 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
 @implements IDisposable
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -57,6 +59,7 @@ else
 	protected async override Task OnParametersSetAsync()
 	@*when page is loaded/loading, this method will be called*@
 	{
+		_interceptor.MonitorEvent();
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
 		if (!string.IsNullOrEmpty(cname))
 		{
@@ -104,6 +107,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }

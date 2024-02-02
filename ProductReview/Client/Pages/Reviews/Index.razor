@@ -4,7 +4,9 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @implements IDisposable
 @attribute [Authorize]
-
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
+@implements IDisposable
 
 
 <h3 class="card-title">My Reviews</h3>
@@ -79,6 +81,7 @@ else
 
 	protected async override Task OnInitializedAsync()
 	{
+		_interceptor.MonitorEvent();
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		Username = authState.User.Identity.Name;
@@ -143,6 +146,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }
