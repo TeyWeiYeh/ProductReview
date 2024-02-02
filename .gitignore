@@ -373,3 +373,4 @@ FodyWeavers.xsd
 /ProductReview/Server/Migrations/20240202093923_newdb.Designer.cs
 /ProductReview/Server/Migrations/ApplicationDbContextModelSnapshot.cs
 /ProductReview/Server/Migrations/20240131110540_newdb.cs
+/ProductReview/Server/Migrations
