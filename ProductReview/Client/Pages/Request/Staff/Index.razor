@@ -5,6 +5,7 @@
 @inject HttpInterceptorService _interceptor
 @* allows the page to be intercepted *@
 @implements IDisposable
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h3>Review Requests</h3>
 <br />
@@ -64,11 +65,14 @@ else
 	private List<Request>? Requests;
 	// private Request request = new Request();
 	Product product = new Product();
+	public string? Username { get; set; }
 
 	protected async override Task OnInitializedAsync()
 	{
 		_interceptor.MonitorEvent();
 		Requests = await _client.GetFromJsonAsync<List<Request>>($"{Endpoints.RequestsEndpoint}");
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		Username = authState.User.Identity.Name;
 	}
 
 	async Task Delete(int requestId)
@@ -89,17 +93,18 @@ else
 	{
 		// adds variation instead of updatin existing review
 		Review reviewToUpdate = new Review
-		{
-			ProductId=requestToUpdate.ProductId,
-		 	Title = requestToUpdate.Title,
-		 	Description = requestToUpdate.Description,
-			Image=requestToUpdate.Image,
-		 	Value = requestToUpdate.Value,
-		 	BatteryLife = requestToUpdate.BatteryLife,
-		 	Performance = requestToUpdate.Performance,
-		 	UserFriendly = requestToUpdate.UserFriendly,
-		 	DateCreated = DateTime.Now
-		};
+			{
+			ProductId = requestToUpdate.ProductId,
+			Title = requestToUpdate.Title,
+			Description = requestToUpdate.Description,
+			Image = requestToUpdate.Image,
+			Value = requestToUpdate.Value,
+			BatteryLife = requestToUpdate.BatteryLife,
+			Performance = requestToUpdate.Performance,
+			UserFriendly = requestToUpdate.UserFriendly,
+			DateCreated = DateTime.Now,
+			Username = Username
+	};
 		// reviewToUpdate.ProductId = requestToUpdate.ProductId;
 		// await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, reviewToUpdate);
 
