@@ -1,4 +1,9 @@
-﻿.comment-section {
+﻿a{
+    text-decoration: none;
+    width: 450px;
+}
+
+.comment-section {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -14,13 +19,23 @@
     flex-direction: column;
 }
 
+.container:hover{
+    cursor: pointer;
+}
+
 .container .title{
     padding: 5px 10px 10px;
     display: flex;
+    justify-content: space-between;
 }
 
 .container .title i{
     font-size: 2em;
+}
+
+.container .icons{
+    width: 200px;
+    display: flex;
 }
 
 .body{

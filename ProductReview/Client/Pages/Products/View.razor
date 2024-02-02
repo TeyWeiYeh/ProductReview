@@ -2,9 +2,10 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime js
 
 <h3>Viewing @product.Name</h3>
-<h4>Average Rating:</h4>
+<h4>Average Rating: @CalculateProductAvg(Reviews)</h4>
 
 <br />
 <button @onclick=ReviewPage class="btn btn-secondary">Write a review</button>
@@ -29,35 +30,29 @@
 		<br />
 		<div class="container">
 			<div class="title">
+				<div class="icons">
 				<i class="bi bi-person-circle"></i>
-				<p>@UserName</p>
+				<p>@review.Username</p>
+				</div>
+				<div class="actions">
+					@if(review.Username == UserName)
+					{
+						<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))">
+							<span class="oi oi-delete"></span>
+						</button>
+					}
+				</div>
 			</div>
 			<div class="body">
-					<p class="star-rating" data-rating="@Convert.ToInt32(Math.Round(CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly)))">@CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly)</p>
+					<p class="star-rating" data-rating="@Convert.ToInt32(Math.Round(CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly)))"></p>
 				<div class="content">
-					<a href="/reviews/view/@review.Id">@review.Title</a>
+					<a href="/reviews/view/@review.Id">@review.Title</a>	
 				</div>
 			</div>
 			<div class="footer">
 					<p class="card-text"><small class="text-muted">@CalculateMinutes(review.DateCreated, review.DateUpdated)</small></p>
 			</div>
 		</div>
-		@* <div class="card border-success mb-3" style="max-width: 36rem;">
-			<div class="card-header bg-transparent border-success"><span class="bi bi-person-circle"></span></div>
-			<div class="card-body text-success">
-				<p>@review.Description</p>
-				<label>Average Value:</label>
-				<p class="star-rating" data-rating="@CalculateAverage(review.Value,review.BatteryLife,review.Performance,review.UserFriendly)"></p>
-				<p class="star-rating" data-rating="@review.Value"></p>
-				<p>Battery Life:</p>
-				<p class="star-rating" data-rating="@review.BatteryLife"></p>
-				<p>Performance:</p>
-				<p class="star-rating" data-rating="@review.Performance"></p>
-				<p>User Friendly:</p>
-				<p class="star-rating" data-rating="@review.UserFriendly"></p> 
-			</div>
-			<div class="card-footer bg-transparent border-success">@CalculateMinutes(review.DateCreated,review.DateUpdated)</div>
-		</div> *@
     }
 }
 
@@ -73,6 +68,7 @@
 	private List<Category>? Categories;
 	private List<double> AverageRating = new List<double>();
 	private string? UserName;
+	private List<Review>? filteredReviews;
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -132,16 +128,37 @@
 		return average;
 	}
 
-	private double CalculateProductAvg(List<double> AverageRating)
+	private double CalculateProductAvg(List<Review>? Reviews)
 	{
 		double sum = 0;
-
-		foreach (var rating in AverageRating)
+		@if(Reviews == null)
 		{
-			sum += rating;
+			return 0.0;
 		}
+		else
+        {
+			filteredReviews = Reviews.Where(q => q.ProductId == Id).ToList();
+			foreach (var review in filteredReviews)
+			{
+                var rating = CalculateAverage(review.Value, review.BatteryLife, review.Performance, review.UserFriendly);
+				sum += rating;
+            }
+			double productAvg = sum / filteredReviews.Count;
+			return productAvg;
+		}
+	}
 
-		double productAvg = sum / AverageRating.Count;
-		return Math.Round(productAvg, MidpointRounding.AwayFromZero);
+	async Task Delete(int reviewId)
+	{
+		if (Reviews != null)
+		{
+			var review = Reviews.First(r => r.Id == reviewId);
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {review.Title}?");
+			if (confirm)
+			{
+				await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}");
+				await OnInitializedAsync();
+			}
+		}
 	}
 }
