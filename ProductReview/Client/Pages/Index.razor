@@ -16,9 +16,13 @@ else
             <h4><strong>SMARTPHONE ARTICLE</strong></h4>
         </div>
         <div class="news-group">
-            @foreach (var news in News)
+            @foreach (var news in News.Where(r=>r.CategoryId==1))
             {
-                if (news.CategoryId is 1)
+                if(news == null)
+                {
+                    <h4>There are no news articles</h4>
+                }
+                else
                 {
                     <div class="news-card">
                         <div class="image">
@@ -37,7 +41,6 @@ else
                         </div>
                     </div>
                 }
-
             }
         </div>
     </div>
@@ -47,9 +50,13 @@ else
             <h4><strong>LAPTOP ARTICLE</strong></h4>
         </div>
         <div class="news-group">
-            @foreach (var news in News)
+            @foreach (var news in News.Where(n => n.CategoryId==2))
             {
-                if (news.CategoryId == 2)
+                if (news == null)
+                {
+                    <h4>There are no news articles</h4>
+                }
+                else
                 {
                     <div class="news-card">
                         <div class="image">

@@ -37,8 +37,7 @@
     {
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            _navManager.NavigateTo($"/products/{searchTerm}");
-            
+            _navManager.NavigateTo($"/categories/products/all/{searchTerm}");
         }
     }
 }

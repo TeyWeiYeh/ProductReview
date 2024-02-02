@@ -2,6 +2,7 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@implements IDisposable
 @attribute [Authorize]
 
 
@@ -14,7 +15,7 @@
 }
 else
 {
-
+	
 	<table class="table table-responsive" id="productsTable">
 		<thead>
 			<tr>
@@ -54,13 +55,13 @@ else
 						</div>
 					</td>
 					<td>
-						<a href="/reviews/view/@review.Id" class="btn btn-primary">
+						<a href="/products/view/@review.ProductId" class="btn btn-primary">
 							<span class="oi oi-book"></span>
 						</a>
 						<a href="/reviews/edit/@review.Id" class="btn btn-warning">
 							<span class="oi oi-pencil"></span>
 						</a>
-						<button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))"><span class="oi oi-delete"></span></button>
+						<button class="btn btn-danger" @onclick="(()=>Delete(review.Id))"><span class="oi oi-delete"></span></button>
 					</td>
 				</tr>
 			}
@@ -71,9 +72,10 @@ else
 }
 
 @code {
-	private IList<Review>? Reviews;
+	private List<Review>? Reviews;
 	Product product = new Product();
 	public string? Username { get; set; }
+	private List<Review>? filteredReviews;
 
 	protected async override Task OnInitializedAsync()
 	{

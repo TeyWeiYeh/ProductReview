@@ -5,6 +5,8 @@
 <h3>Edit Review</h3>
 
 <FormComponent ButtonText="Update Review" OnValidSubmit="EditReview" review="review" />
+<br />
+<button @onclick="()=>HandleButton()" class="bi bi-backspace">Cancel</button>
 
 @code {
     [Parameter] public int Id { get; set; }
@@ -19,6 +21,11 @@
     {
         review.DateUpdated = DateTime.Now;
         await _client.PutAsJsonAsync($"{Endpoints.ReviewsEndpoint}/{Id}", review);
+        _navManager.NavigateTo("/reviews/");
+    }
+
+    private void HandleButton()
+    {
         _navManager.NavigateTo("/reviews/");
     }
 }

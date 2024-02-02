@@ -1,0 +1,57 @@
+﻿@page "/categories/products/all"
+@page "/categories/products/all/{searchTerm}"
+@inject HttpClient _client
+@inject IJSRuntime js
+
+<h3>All Products page</h3>
+
+@if (Products == null)
+{
+    <p>Loading products...</p>
+}
+else
+{
+    @foreach (var product in filteredProducts)
+    {
+        <div class="container">
+            <div class="news-group-title">
+                <i class="bi bi-phone"></i>
+            </div>
+            <div class="news-group">
+                <div class="news-card">
+                    <div class="image">
+                        <img src="@product.Image" alt="Image of news article" />
+                    </div>
+                    <div class="body">
+                        <div class="title">
+                            <strong><a href="/products/view/@product.Id">@product.Name</a></strong>
+                        </div>
+                        <div class="desc">
+                            <p>
+                                <a href="/products/view/@product.Id">@product.Description </a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    [Parameter] public string? searchTerm { get; set; }
+    private List<Product>? Products;
+    private List<Product>? filteredProducts;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+        ApplyFilter();
+    }
+
+    private void ApplyFilter()
+    {
+        filteredProducts = Products.Where(r => (string.IsNullOrEmpty(searchTerm)) || r.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+    }
+}
