@@ -13,6 +13,8 @@ namespace ProductReview.Shared.Domain
 		public string? Title { get; set; }
 		[Required]
 		public string? Description { get; set; }
+
+		public string? Image { get; set; }
 		[Required]
 		public int Value { get; set; }
 		[Required]

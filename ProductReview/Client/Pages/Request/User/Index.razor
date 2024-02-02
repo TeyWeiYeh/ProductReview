@@ -1,4 +1,4 @@
-﻿@page "/send_request/"
+﻿@page "/reviews/create/{id:int}"
 @inject HttpClient _client
 @inject IJSRuntime js
 @inject NavigationManager _navManager
@@ -14,7 +14,7 @@
 
 @code {
 	Request? request= new Request();
-
+	[Parameter] public int id { get; set; }
 	private IList<Product>? Products;
 	private IList<Review>? Reviews;
 
@@ -26,8 +26,9 @@
 
 	private async Task CreateRequest()
 	{
-		await _client.PostAsJsonAsync(Endpoints.RequestsEndpoint, request);
-		_navManager.NavigateTo("/");
+		request.ProductId = id;
+		 await _client.PostAsJsonAsync(Endpoints.RequestsEndpoint, request);
+		 _navManager.NavigateTo("/");
 	}
 }
 

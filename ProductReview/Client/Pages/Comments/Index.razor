@@ -2,6 +2,8 @@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 @inject IJSRuntime js
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
 @implements IDisposable
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -59,6 +61,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+		_interceptor.MonitorEvent();
         Comments = await _client.GetFromJsonAsync<List<Comment>>($"{Endpoints.CommentsEndpoint}");
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -124,6 +127,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }

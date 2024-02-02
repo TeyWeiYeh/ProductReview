@@ -2,7 +2,9 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
+@implements IDisposable
 
 
 <h3 class="card-title">My Reviews</h3>
@@ -13,8 +15,8 @@
 }
 else
 {
-
-	<table class="table table-responsive" id="productsTable">
+	
+	<table class="table">
 		<thead>
 			<tr>
 				<th>Reviews</th>
@@ -76,6 +78,7 @@ else
 
 	protected async override Task OnInitializedAsync()
 	{
+		_interceptor.MonitorEvent();
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 	}
 
@@ -138,6 +141,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#productsTable");
 	}
 }

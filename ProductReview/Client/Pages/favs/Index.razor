@@ -2,6 +2,8 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
 @implements IDisposable
 
 
@@ -43,18 +45,20 @@ else
 
 
 @code {
-	
+
 	private List<Favourite>? Favourites;
 	private List<Product>? Products;
-	
+
 
 	protected async override Task OnInitializedAsync()
 	{
+		_interceptor.MonitorEvent();
 		Favourites = await _client.GetFromJsonAsync<List<Favourite>>($"{Endpoints.FavouritesEndpoint}");
-	
+
 	}
 
-	async Task Delete(int favouriteId)@*pass ID into delete method will delete thingy*@
+	async Task Delete(int favouriteId)
+	@*pass ID into delete method will delete thingy*@
 	{
 		if (Favourites != null)
 		{
@@ -77,6 +81,7 @@ else
 
 	public void Dispose()
 	{
+		_interceptor.DisposeEvent();
 		js.InvokeVoidAsync("DataTablesDispose", "#favouritesTable");
 	}
 

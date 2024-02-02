@@ -1,5 +1,6 @@
-﻿@page "/reviews/create/{id:int}"
-@page "/reviews/create"
+﻿@* @page "/reviews/create/{id:int}"  *@
+@page "/reviews/create" 
+@* for staf to create a review *@
 @inject HttpClient _client
 @inject NavigationManager _navManager
 @inject IJSRuntime js
@@ -8,7 +9,6 @@
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
 
-<InputFile OnChange="OnFileChange" />
 
 @* <EditForm Model="@review" OnValidSubmit="CreateReview">
 	<DataAnnotationsValidator />
@@ -106,17 +106,4 @@
 		await _client.PostAsJsonAsync(Endpoints.ReviewsEndpoint, review);
 		_navManager.NavigateTo($"/products/view/{id}");
 	}
-
-	private async Task OnFileChange(InputFileChangeEventArgs e)
-	{
-		var format = "image/png";
-		var resizedImage = await e.File.RequestImageFileAsync(format, 300, 300);
-		var buffer = new byte[resizedImage.Size];
-		await resizedImage.OpenReadStream().ReadAsync(buffer);
-		var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-		review.Image = imageData;
-
-		Console.WriteLine(review.Image);
-	}
-
 }

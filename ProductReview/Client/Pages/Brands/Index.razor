@@ -2,6 +2,9 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@* allows the page to be intercepted *@
+@implements IDisposable
 
 <h3 class="card=title">Brands</h3>
 <br />
@@ -53,6 +56,7 @@ else
 	protected async override Task OnInitializedAsync()
 	@*when page is loaded/loading, this method will be called*@
 	{
+		_interceptor.MonitorEvent();
 		Brands = await _client.GetFromJsonAsync<List<Brand>>($"{Endpoints.BrandsEndpoint}");
 	}
 
@@ -71,4 +75,10 @@ else
 			}
 		}
 	}
+
+	public void Dispose()
+	{
+		_interceptor.DisposeEvent();
+	}
+
 }

@@ -6,6 +6,7 @@
 
 <FormComponent ButtonText="Update Review" OnValidSubmit="EditReview" review="review" />
 
+
 @code {
     [Parameter] public int Id { get; set; }
     Review? review = new Review();
@@ -21,4 +22,5 @@
         await _client.PutAsJsonAsync($"{Endpoints.ReviewsEndpoint}/{Id}", review);
         _navManager.NavigateTo("/reviews/");
     }
+
 }
