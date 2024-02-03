@@ -9,7 +9,7 @@
 <button @onclick="CreateCommentPage" class="btn btn-secondary">Write a comment</button>
 <div><img src="@review.Image" width="500" /></div>
 <FormComponent review="review" ButtonText="Create review" Disabled="true"/>
-
+<button class="btn btn-outline-dark btn-block" @onclick="()=>HandleButton()"><span class="oi oi-arrow-left"></span>Back to product</button>
 
 
 @if(Comments != null)
@@ -103,4 +103,9 @@
 			}
 		}
 	}
+
+	private void HandleButton()
+    {
+        _navManager.NavigateTo($"/products/view/{review.ProductId}");
+    }
 }
