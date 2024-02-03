@@ -127,7 +127,7 @@ else
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		UserName = authState.User.Identity.Name;
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
-		filteredProduct(Id);
+		filteredProduct(Id, product.CategoryId);
 	}
 
 	private void ReviewPage()
@@ -224,8 +224,8 @@ else
 
 	}
 
-	private void filteredProduct(int productId)
+	private void filteredProduct(int productId, int? categoryId)
 	{
-		filteredProducts = Products.Where(r => r.Id != productId).ToList();
+		filteredProducts = Products.Where(r => r.Id != productId && r.CategoryId == categoryId).ToList();
 	}
 }

@@ -9,7 +9,8 @@
 <br />
 
 <FormComponent ButtonText="Create Product" product="product" OnValidSubmit="@CreateProduct" />
-
+<br />
+<button class="btn btn-secondary" @onclick="()=>HandleButton()"><span class="oi oi-arrow-left"></span>Back to Products</button>
 
 @code {
 	Product? product = new Product();
@@ -24,6 +25,11 @@
 	private async Task CreateProduct()
 	{
 		await _client.PostAsJsonAsync(Endpoints.ProductsEndpoint, product);
+		_navManager.NavigateTo("/products/");
+	}
+
+	private void HandleButton()
+	{
 		_navManager.NavigateTo("/products/");
 	}
 }

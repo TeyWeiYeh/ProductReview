@@ -91,13 +91,18 @@ padding: 0px;
 }
 
 .card{
-    
     max-width: 450px;
     margin: 20px;
+}
+
+.card:hover {
+    cursor: pointer;
 }
 
 .card .img{
     width: 200px;
 }
+
+
 
 
