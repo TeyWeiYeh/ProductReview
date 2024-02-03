@@ -3,11 +3,10 @@
 @* for staf to create a review *@
 @inject HttpClient _client
 @inject NavigationManager _navManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>Write a review</h3>
-<hr />
+<h3>Create a review</h3>
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
 
@@ -95,7 +94,7 @@
 	[Parameter]public int id { get; set; }
 	public string? Username { get; set; }
 
-	private List<Product>? Products;
+	private IList<Product>? Products;
 
 
 	protected async override Task OnInitializedAsync()
@@ -114,8 +113,16 @@
 		_navManager.NavigateTo($"/products/view/{id}");
 	}
 
-	private void HandleButton()
+	private async Task OnFileChange(InputFileChangeEventArgs e)
 	{
-		_navManager.NavigateTo($"/products/view/{id}");
+		var format = "image/png";
+		var resizedImage = await e.File.RequestImageFileAsync(format, 300, 300);
+		var buffer = new byte[resizedImage.Size];
+		await resizedImage.OpenReadStream().ReadAsync(buffer);
+		var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+		review.Image = imageData;
+
+		Console.WriteLine(review.Image);
 	}
+
 }
