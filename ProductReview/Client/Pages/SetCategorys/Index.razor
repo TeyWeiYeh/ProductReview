@@ -3,6 +3,7 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @inject HttpInterceptorService _interceptor
+@inject NavigationManager _navManager
 @* allows the page to be intercepted *@
 @implements IDisposable
 
@@ -74,6 +75,7 @@ else
 			{
 				await _client.DeleteAsync($"{Endpoints.CategoriesEndpoint}/{categoryId}");
 				await OnInitializedAsync();
+				_navManager.NavigateTo("/category", true);
 			}
 		}
 	}

@@ -90,10 +90,10 @@ else
 	<h4>Related Products</h4>
 	<br />
 	<div class="card-deck">
-		@foreach (var product in Products.Where(r => r.Id != Id))
+		@foreach (var product in filteredProducts)
 		{
-			<div class="card">
-				<img class="card-img-top" src="@product.Image" width="300" alt="Product Image">
+			<div class="card" @onclick="()=>GotoProduct(product.Id, _navManager)">
+				<img class="card-img-top" src="@product.Image" width="100" height="150"alt="Product Image">
 				<div class="card-body">
 					<h5 class="card-title">@product.Name</h5>
 					<p class="card-text">@product.Description</p>
@@ -117,6 +117,7 @@ else
 	private List<double> AverageRating = new List<double>();
 	private string? UserName;
 	private List<Review>? filteredReviews;
+	private List<Product>? filteredProducts;
 
 	protected async override Task OnInitializedAsync()
 	{
@@ -126,6 +127,7 @@ else
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		UserName = authState.User.Identity.Name;
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
+		filteredProduct(Id);
 	}
 
 	private void ReviewPage()
@@ -212,7 +214,18 @@ else
 	}
 
 	private void HandleButton(int reviewId)
-    {
-        _navManager.NavigateTo($"/reviews/view/{reviewId}");
-    }
+	{
+		_navManager.NavigateTo($"/reviews/view/{reviewId}");
+	}
+
+	private void GotoProduct(int productId, NavigationManager manager)	
+	{
+		_navManager.NavigateTo($"/products/view/{productId}", true);
+
+	}
+
+	private void filteredProduct(int productId)
+	{
+		filteredProducts = Products.Where(r => r.Id != productId).ToList();
+	}
 }
