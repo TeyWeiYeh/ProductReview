@@ -25,58 +25,12 @@
             <p>Date posted: @news.DateCreated.ToString("dd/MM/yyyy")</p>
         </div>
         <div class="content">
-            <p>
-                Lorem ipsum dolor sit amet. Ut nemo quisquam aut voluptas eligendi quo quia 
-                praesentium non laboriosam veniam At culpa alias. Ad molestias reiciendis ut 
-                quisquam eaque et libero nisi ad quia Quis aut internos inventore aut illum 
-                quasi. Ad ducimus molestias sed recusandae earum in facilis quisquam sit quidem 
-                dolore hic galisum illo quo fuga enim. Rem asperiores ratione et aliquam 
-                aliquam sit numquam porro ab excepturi voluptates et tempora quam ut odit 
-                inventore. Hic animi porro ut esse placeat eum expedita saepe sed ducimus 
-                inventore. Aut culpa aperiam ab nobis accusantium quo pariatur itaque. 
-                Ut magni assumenda ut ullam quia eos sunt mollitia? Rem modi sunt qui 
-                reprehenderit accusantium ut iusto tempore quo sint fuga. 
-                <br />
-                <br />
-                Ea omnis commodi sit molestiae blanditiis cum ullam suscipit est internos sint et error 
-                accusantium! Et eveniet eaque qui illum nihil aut omnis eligendi et vitae 
-                rerum ea optio deleniti? Sit reprehenderit dolore est corrupti beatae est 
-                cupiditate voluptatem est modi galisum et rerum nihil et reiciendis sunt ex 
-                provident voluptatem. Aut eaque rerum 33 omnis earum ex deleniti fugiat ex 
-                nostrum deserunt id voluptas odit. Ad dolore minima qui reiciendis saepe vel 
-                exercitationem cumque qui quia reprehenderit aut alias veritatis aut 
-                voluptatum galisum. Ex voluptatem quidem et quidem error 33 reprehenderit 
-                quidem et aliquid culpa rem numquam illo. Et quia dolorem et cupiditate 
-                impedit qui illo omnis ut asperiores recusandae et soluta totam. In Quis 
-                facilis hic similique obcaecati et unde obcaecati non reprehenderit 
-                voluptatibus ut dolorum dicta At quia nostrum qui ipsum eveniet.
-                <br />
-                <br />
-                Et corporis exercitationem et illo voluptate in quia natus eos ducimus quis 
-                et tempore amet ut quia nemo et ipsam maxime? Eos veniam reprehenderit ea 
-                architecto nesciunt sed consequuntur eligendi ex voluptatem quia aut iste 
-                perferendis. Est voluptate libero 33 debitis minima aut quasi veniam. Cum 
-                adipisci dolorum ut ipsum ullam ea doloremque deserunt. Non deserunt obcaecati 
-                et quasi obcaecati in quidem enim aut deleniti consequatur hic provident 
-                perferendis non nisi quaerat. Et laborum iusto At explicabo dolores non quos 
-                atque ea aliquam inventore. Qui amet nihil eos sunt quibusdam non corrupti 
-                consequuntur sit veritatis natus qui ducimus facere qui illum optio. Non dicta
-                maxime in quis ipsa ea magnam distinctio aut expedita omnis? Et repellat quae 
-                et sunt sint qui earum recusandae et rerum nesciunt in quidem animi et omnis 
-                porro. Et impedit cumque est eveniet voluptas eos similique fuga. Non magni 
-                tenetur vel dolor illum nam minus voluptate At vitae repellendus id accusamus 
-                dignissimos sed cupiditate excepturi. At quibusdam voluptatibus aut nihil 
-                molestiae est amet laborum aut itaque dolorem est harum fugit quo ipsam 
-                dolorum. Ut officiis ipsam ut nemo harum quo quisquam nihil eos galisum 
-                dolores qui culpa nulla. In adipisci perspiciatis sed cupiditate expedita qui 
-                totam consequatur ut repudiandae eligendi rem vitae omnis eos tempora nisi et 
-                porro velit. Ut corrupti molestiae qui maiores perferendis non alias quia sit 
-                galisum corrupti et vero ipsam 33 sapiente possimus. Quo obcaecati temporibus 
-                non velit blanditiis non alias velit ex amet molestiae eos ullam vero ab enim 
-                culpa et omnis minima. Quo odit voluptate et rerum iusto vel eligendi molestiae 
-                et officiis praesentium.
-            </p>
-            <p>@news.Content</p>
+            @if (!string.IsNullOrEmpty(news.Content))
+            {
+                <p>@splitParagraph(news.Content).Item1</p>
+                <p>@splitParagraph(news.Content).Item2</p>
+                <p>@splitParagraph(news.Content).Item3</p>
+            }
         </div>
     </div>
 }
@@ -84,6 +38,7 @@
 @code {
     [Parameter] public int Id { get; set; }
     News? news = new News();
+    private string? paragraph { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -119,5 +74,17 @@
             return "Just updated";
         }
 
+    }
+
+    private Tuple<string, string, string> splitParagraph(string paragraph)
+    {
+        int partLength = paragraph.Length / 3;
+
+        // Split the paragraph into three parts
+        string part1 = paragraph.Substring(0, partLength);
+        string part2 = paragraph.Substring(partLength, partLength);
+        string part3 = paragraph.Substring(2 * partLength);
+
+        return new Tuple<string, string, string>(part1, part2, part3);
     }
 }

@@ -3,6 +3,7 @@
 @inject NavigationManager _navManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime js
+@inject HttpInterceptorService _interceptor
 
 <h3>Viewing @product.Name</h3>
 
@@ -45,12 +46,12 @@ else
 
 
 
-<div class="comment-section">
+<div class="review-section">
 @foreach (var review in Reviews ?? Enumerable.Empty<Review>())
 {
 	@if (review.ProductId == Id){
 		<br />
-		<div class="container">
+		<div class="container" @onclick="()=>HandleButton(review.Id)">
 			<div class="title">
 				<div class="icons">
 				<i class="bi bi-person-circle"></i>
@@ -81,6 +82,28 @@ else
 <br />
 </div>
 
+@if (Products != null)
+{
+	<hr />
+	<h4>Related Products</h4>
+	<br />
+	<div class="card-deck">
+		@foreach (var product in Products.Where(r => r.Id != Id))
+		{
+			<div class="card">
+				<img class="card-img-top" src="@product.Image" alt="Product Image">
+				<div class="card-body">
+					<h5 class="card-title">@product.Name</h5>
+					<p class="card-text">@product.Description</p>
+					<p class="card-text"><small class="text-muted">@CalculateMinutes(product.DateCreated,product.DateUpdated)</small></p>
+				</div>
+			</div>
+		}
+	</div>
+	<br />
+}
+
+
 
 
 @code {
@@ -88,6 +111,7 @@ else
 	Product? product = new Product();
 	private List<Review>? Reviews;
 	private List<Category>? Categories;
+	private List<Product>? Products;
 	private List<double> AverageRating = new List<double>();
 	private string? UserName;
 	private List<Review>? filteredReviews;
@@ -99,6 +123,7 @@ else
 		Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		UserName = authState.User.Identity.Name;
+		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
 	}
 
 	private void ReviewPage()
@@ -183,4 +208,9 @@ else
 			}
 		}
 	}
+
+	private void HandleButton(int reviewId)
+    {
+        _navManager.NavigateTo($"/reviews/view/{reviewId}");
+    }
 }

@@ -4,7 +4,7 @@
 @attribute [Authorize]
 
 
-@if(News == null)
+@if(News == null && Categories == null)
 {
     <div class="alert alert-info">Loading news...</div>
 }
@@ -12,68 +12,162 @@ else
 {
     <div class="container">
         <div class="news-group-title">
-            <i class="bi bi-phone"></i>
-            <h4><strong>SMARTPHONE ARTICLE</strong></h4>
+            @if(Categories.Any(cat => cat.Name.Contains("phone", StringComparison.OrdinalIgnoreCase)))
+            {
+                <i class="bi bi-phone"></i>
+                <h4><strong>SMARTPHONE ARTICLE</strong></h4>
+            }
         </div>
         <div class="news-group">
-            @foreach (var news in News.Where(r=>r.CategoryId==1))
+            @foreach (var cat in Categories.Where(r => r.Name.Contains("phone", StringComparison.OrdinalIgnoreCase)))
             {
-                if(news == null)
+                if (!News.Any(r => r.CategoryId == cat.Id))
                 {
                     <h4>There are no news articles</h4>
                 }
                 else
                 {
-                    <div class="news-card">
-                        <div class="image">
-                            <img src="@news.Image" alt="Image of news article" />
-                        </div>
-                        <div class="body">
-                            <div class="title">
-                                <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                    @foreach (var news in News.Where(q => q.CategoryId == cat.Id))
+                    {
+                        <div class="news-card">
+                            <div class="image">
+                                <img src="@news.Image" alt="Image of news article" />
                             </div>
-                            <div class="desc">
-                                <p>
-                                    <a href="/news/view/@news.Id">@news.Description </a>
-                                </p>
-                            </div>
+                            <div class="body">
+                                <div class="title">
+                                    <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                                </div>
+                                <div class="desc">
+                                    <p>
+                                        <a href="/news/view/@news.Id">@news.Description </a>
+                                    </p>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             }
         </div>
     </div>
     <div class="container">
         <div class="news-group-title">
-            <i class="bi bi-laptop"></i>
-            <h4><strong>LAPTOP ARTICLE</strong></h4>
+            
+            @if(Categories.Any(cat => cat.Name.Contains("laptop", StringComparison.OrdinalIgnoreCase)))
+            {
+                <i class="bi bi-laptop"></i>
+                <h4><strong>LAPTOP ARTICLE</strong></h4>
+            }
         </div>
         <div class="news-group">
-            @foreach (var news in News.Where(n => n.CategoryId==2))
+            @foreach (var cat in Categories.Where(r => r.Name.Contains("laptop", StringComparison.OrdinalIgnoreCase)))
             {
-                if (news == null)
+                if (!News.Any(r => r.CategoryId == cat.Id))
                 {
                     <h4>There are no news articles</h4>
                 }
                 else
                 {
-                    <div class="news-card">
-                        <div class="image">
-                        <img src="@news.Image" alt="Image of news article" />
-                    </div>
-                    <div class="body">
-                        <div class="title">
-                            <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
-                        </div>
-                        <div class="desc">
-                            <p>
-                                <a href="/news/view/@news.Id">@news.Description </a>
-                            </p>
-                        </div>
+                    @foreach (var news in News.Where(q => q.CategoryId == cat.Id))
+                    {
+                        <div class="news-card">
+                            <div class="image">
+                                <img src="@news.Image" alt="Image of news article" />
+                            </div>
+                            <div class="body">
+                                <div class="title">
+                                    <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                                </div>
+                                <div class="desc">
+                                    <p>
+                                        <a href="/news/view/@news.Id">@news.Description </a>
+                                    </p>
+                                </div>
 
-                    </div>
-                    </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="container">
+        <div class="news-group-title">
+            
+            @if (Categories.Any(cat => cat.Name.Contains("tablet", StringComparison.OrdinalIgnoreCase)))
+            {
+                <i class="bi bi-tablet"></i>
+                <h4><strong>TABLET ARTICLE</strong></h4>
+            }
+        </div>
+        <div class="news-group">
+            @foreach (var cat in Categories.Where(r => r.Name.Contains("tablet", StringComparison.OrdinalIgnoreCase)))
+            {
+                if (!News.Any(r => r.CategoryId == cat.Id))
+                {
+                    <h4>There are no news articles</h4>
+                }
+                else
+                {
+                    @foreach (var news in News.Where(q => q.CategoryId == cat.Id))
+                    {
+                        <div class="news-card">
+                            <div class="image">
+                                <img src="@news.Image" alt="Image of news article" />
+                            </div>
+                            <div class="body">
+                                <div class="title">
+                                    <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                                </div>
+                                <div class="desc">
+                                    <p>
+                                        <a href="/news/view/@news.Id">@news.Description </a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="container">
+        <div class="news-group-title">
+            @if (Categories.Any(cat => cat.Name.Contains("smartwatch", StringComparison.OrdinalIgnoreCase)))
+            {
+                <i class="bi bi-smartwatch"></i>
+                <h4><strong>SMARTWATCH ARTICLE</strong></h4>
+            }
+        </div>
+        <div class="news-group">
+            @foreach (var cat in Categories.Where(r => r.Name.Contains("smartwatch", StringComparison.OrdinalIgnoreCase)))
+            {
+                if(!News.Any(r=>r.CategoryId == cat.Id))
+                {
+                    <h4>There are no news articles</h4>
+                }
+                else
+                {
+                    @foreach (var news in News.Where(q => q.CategoryId == cat.Id))
+                    {
+                        <div class="news-card">
+                            <div class="image">
+                                <img src="@news.Image" alt="Image of news article" />
+                            </div>
+                            <div class="body">
+                                <div class="title">
+                                    <strong><a href="/news/view/@news.Id">@news.Title</a></strong>
+                                </div>
+                                <div class="desc">
+                                    <p>
+                                        <a href="/news/view/@news.Id">@news.Description </a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
@@ -85,10 +179,14 @@ else
 
 @code{
     private List<News>? News;
+    private List<Category>? Categories;
 
     protected async override Task OnInitializedAsync(){
         News = await _client.GetFromJsonAsync<List<News>>($"{Endpoints.NewsEndpoint}");
+        Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
     }
+
+    
 }
 
 
