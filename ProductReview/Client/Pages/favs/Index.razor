@@ -34,6 +34,9 @@ else
 					<td>@(favourite.Brand?.Name ?? "No Brand")</td>
 					<td>@(favourite.Category?.Name?? "No Category")</td>
 					<td>
+						<a href="/products/view/@favourite.Product.Id" class="btn btn-primary">
+							<span class="oi oi-book"></span>
+						</a>
 						<button class="btn btn-danger" @onclick="@(()=>Delete(favourite.Id))">
 							<span class="oi oi-delete"></span>
 						</button>

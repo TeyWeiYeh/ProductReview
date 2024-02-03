@@ -206,11 +206,17 @@
 
 	private async Task OnFileChange(InputFileChangeEventArgs e)
 	{
+		//This line sets the image format that you want to use. In this case, it's PNG.
 		var format = "image/png";
+		//This takes the image the user selected, and resizes it to be 300 pixels by 300 pixels using RequestImageFileAsync method.
 		var resizedImage = await e.File.RequestImageFileAsync(format, 300, 300);
+		//This line reads the resized image and stores it in a buffer.
 		var buffer = new byte[resizedImage.Size];
+		//This loads the resized image into the buffer we just created.
 		await resizedImage.OpenReadStream().ReadAsync(buffer);
+		//This line converts the buffer into a base64 string, and stores it in a variable called imageData.
 		var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+		//This sets the image property of the review object to the imageData variable.
 		request.Image = imageData;
 
 		Console.WriteLine(request.Image);

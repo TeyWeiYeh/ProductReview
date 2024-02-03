@@ -34,6 +34,8 @@ else
 <br/>
 <br />
 
+<div><img src="@product.Image" width="500" /></div>
+
 <FormComponent product="product" Disabled="true" />
 
 @if(Categories != null)
@@ -91,7 +93,7 @@ else
 		@foreach (var product in Products.Where(r => r.Id != Id))
 		{
 			<div class="card">
-				<img class="card-img-top" src="@product.Image" alt="Product Image">
+				<img class="card-img-top" src="@product.Image" width="300" alt="Product Image">
 				<div class="card-body">
 					<h5 class="card-title">@product.Name</h5>
 					<p class="card-text">@product.Description</p>
