@@ -6,8 +6,8 @@
 
 <FormComponent ButtonText="Update Review" OnValidSubmit="EditReview" review="review" />
 <br />
-<button @onclick="()=>HandleButton()" class="bi bi-backspace">Cancel</button>
-
+<button @onclick="()=>HandleButton()" class="btn btn-secondary"><span class="oi oi-arrow-left"></span>Cancel</button>
+<br />
 
 @code {
     [Parameter] public int Id { get; set; }

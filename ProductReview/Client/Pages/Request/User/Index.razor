@@ -10,7 +10,9 @@
 <br />
 <br />
 
-<FormComponent ButtonText="Create request" OnValidSubmit="CreateRequest" request="request" />
+<FormComponent ButtonText="Submit Review" OnValidSubmit="CreateRequest" request="request" />
+
+<button @onclick="()=>HandleButton()" class="btn btn-secondary"><span class="oi oi-arrow-left"></span>Back to product</button>
 
 @code {
 	Request? request= new Request();
@@ -30,6 +32,11 @@
 		 await _client.PostAsJsonAsync(Endpoints.RequestsEndpoint, request);
 		 _navManager.NavigateTo("/");
 	}
+
+	private void HandleButton()
+    {
+        _navManager.NavigateTo($"/products/view/{id}");
+    }
 }
 
 

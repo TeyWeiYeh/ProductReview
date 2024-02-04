@@ -167,7 +167,7 @@ else
 			}
 			else
 			{
-				return "Just posted";
+				return "Just updated";
 			}
 		}
 
@@ -195,7 +195,8 @@ else
 				sum += rating;
             }
 			double productAvg = sum / filteredReviews.Count;
-			return productAvg;
+			double roundedProductAvg = Math.Round(productAvg, 2);
+			return roundedProductAvg;
 		}
 	}
 

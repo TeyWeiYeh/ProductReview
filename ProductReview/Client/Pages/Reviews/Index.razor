@@ -20,7 +20,7 @@ else
 		<thead>
 			<tr>
 				<th>Reviews</th>
-				<th>Description</th>
+				<th>Date Posted/ Updated</th>
 				<th>Value</th>
 				<th>BatteryLife</th>
 				<th>Performance</th>
@@ -33,7 +33,14 @@ else
 			{
 				<tr>
 					<td>@review.Title</td>
-					<td>@review.Description</td>
+					@if(review.DateCreated==review.DateUpdated)
+                    {
+                        <td>@review.DateCreated</td>
+                    }
+                    else
+                    {
+                        <td>@CalculateMinutes(review.DateCreated, review.DateUpdated)</td>
+                    }
 					<td class="star-rating" data-rating="@review.Value">
 						<div style="visibility: hidden;">
 							@review.Value
@@ -131,7 +138,7 @@ else
 			}
 			else
 			{
-				return "Just posted";
+				return "Just updated";
 			}
 		}
 
