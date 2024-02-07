@@ -16,7 +16,7 @@ namespace ProductReview.Shared.Domain
 		
 		public string? Image { get; set; }
 		[Required]
-		[StringLength(1000, MinimumLength = 100, ErrorMessage ="Content is too short.")]
+		[StringLength(int.MaxValue, MinimumLength = 100, ErrorMessage ="Content is too short.")]
         public string? Content { get; set; }
 		public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }

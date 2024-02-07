@@ -209,7 +209,7 @@ else
 			if (confirm)
 			{
 				await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}");
-				await OnInitializedAsync();
+				_navManager.NavigateTo($"/products/view/{Id}", true);
 			}
 		}
 	}
