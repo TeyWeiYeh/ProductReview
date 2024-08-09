@@ -1,4 +1,5 @@
 ﻿@inject HttpClient _client
+@using Syncfusion.Blazor.Inputs
 
 <EditForm Model="@news" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
@@ -34,7 +35,7 @@
     <br />
     <div class="form-group">
         <label>News Content:</label>
-        <InputText @bind-Value="news.Content" class="form-control" />
+        <InputTextArea @bind-Value="news.Content" class="form-control multiline"/>
         <ValidationMessage For="@(() => news.Content)" />
     </div>
     <br />

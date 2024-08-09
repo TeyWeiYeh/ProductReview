@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager _navManager
 @inject HttpClient _client
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -16,9 +16,18 @@
         <AuthorizeView>
             <Authorized>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="authentication/profile" Match="NavLinkMatch.All">
-                        <span class="oi oi-person" aria-hidden="true"></span>Hello,@context.User.Identity?.Name
-                    </NavLink>
+                    @if (user?.Identity?.IsAuthenticated == true)
+                    {
+                        <NavLink class="nav-link" href="authentication/profile" Match="NavLinkMatch.All">
+                            <span class="oi oi-person" aria-hidden="true"></span>Hello, @user.Identity.Name
+                        </NavLink>
+                    }
+                    else
+                    {
+                        <NavLink class="nav-link" href="authentication/login" Match="NavLinkMatch.All">
+                            <span class="oi oi-person" aria-hidden="true"></span>Login
+                        </NavLink>
+                    }
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="#" @onclick="BeginLogOut" Match="NavLinkMatch.All">
@@ -114,6 +123,9 @@
     private bool collapseNavMenu = true;
     private List<Category>? Categories;
     private bool expandSubMenu;
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+    private ClaimsPrincipal? user;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -135,10 +147,15 @@
     protected override async Task OnInitializedAsync()
     {
         Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
+        var authState = await authenticationState;
+        user = authState?.User;
     }
 
     private void GoToCategory(Category cat)
     {
         _navManager.NavigateTo($"/categories/{cat.Name.ToLower()}");
     }
+
+
+
 }

@@ -10,9 +10,10 @@
 		<ValidationMessage For="@(() => review.Title)" />
 	</div>
 	<br/>
+	<br />
 	<div class="form-group">
 		<label>Description:</label>
-		<InputText @bind-Value="@review.Description" class="form-control" />
+		<InputTextArea @bind-Value="@review.Description" class="form-control multiline"/>
 		<ValidationMessage For="@(() => review.Description)" />
 	</div>
 	<br />

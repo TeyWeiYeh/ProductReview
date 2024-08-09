@@ -1,5 +1,4 @@
-﻿@* @page "/reviews/create/{id:int}"  *@
-@page "/reviews/create" 
+﻿@page "/reviews/create" 
 @* for staf to create a review *@
 @inject HttpClient _client
 @inject NavigationManager _navManager
@@ -9,7 +8,6 @@
 <h3>Create a review</h3>
 
 <FormComponent review="review" ButtonText="Create review" OnValidSubmit="@CreateReview"/>
-
 
 @code {
 	Review? review = new Review();

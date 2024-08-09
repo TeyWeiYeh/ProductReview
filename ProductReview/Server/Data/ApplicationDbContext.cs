@@ -25,6 +25,8 @@ namespace ProductReview.Server.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Staff> Staffs { get; set;}
         public DbSet<News>  News { get; set; }
+        public DbSet<Brand> Brand { get; set; }
+        public DbSet<Request> Request { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,9 +43,5 @@ namespace ProductReview.Server.Data
             builder.ApplyConfiguration(new UserRoleSeedConfiguration());
             builder.ApplyConfiguration(new BrandsSeedConfiguration());
         }
-
-        public DbSet<ProductReview.Shared.Domain.Brand> Brand { get; set; } = default!;
-
-        public DbSet<ProductReview.Shared.Domain.Request> Request { get; set; } = default!;
     }
 }

@@ -13,17 +13,26 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<ApplicationUserClaimsPrincipalFactory>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddClaimsPrincipalFactory<ApplicationUserClaimsPrincipalFactory>();
 
-builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+builder.Services.AddIdentityServer().AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options => {
 
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
+    // Note: This settings may be superfluous as the name claim 
+    // is added by default.              
+    options.IdentityResources["openid"].UserClaims.Add("name");
+    options.ApiResources.Single().UserClaims.Add("name");
+
+});
+
+builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(op =>op.SerializerSettings.ReferenceLoopHandling =Newtonsoft.Json.ReferenceLoopHandling.Ignore); 

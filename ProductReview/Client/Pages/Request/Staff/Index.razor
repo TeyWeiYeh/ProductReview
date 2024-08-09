@@ -80,7 +80,7 @@ else
 		if (Requests != null)
 		{
 			var request = Requests.First(r => r.Id == requestId);
-			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete {request.Id}?");
+			var confirm = await js.InvokeAsync<bool>("confirm", $"Are you sure you want to delete this review?");
 			if (confirm)
 			{ 
 				await _client.DeleteAsync($"{Endpoints.RequestsEndpoint}/{requestId}"); 

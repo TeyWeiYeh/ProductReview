@@ -1,164 +1,85 @@
-﻿@* @inject HttpClient _client
+﻿@inject HttpClient _client
 
 <EditForm Model="@request" OnValidSubmit="@OnValidSubmit">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
-
 	<fieldset disabled="@Disabled">
-		<div class="form-group">
-			<label>Existing Review:</label>
-			<InputSelect @bind-Value="@request.ReviewId" class="form-control">
-				<option value="">-- Select Review --</option>
-				@if (Reviews != null)
-				{
-					foreach (var review in Reviews)
-					{
-						<option value="@review.Id">@review.Title</option>
-					}
-				}
-			</InputSelect>
-		</div>
 		<div class="form-group">
 			<label>Review Title:</label>
 			<InputText @bind-Value="@request.Title" class="form-control" />
 			<ValidationMessage For="@(() => request.Title)" />
 		</div>
+		<br/>
 		<div class="form-group">
 			<label>Description:</label>
-			<InputText @bind-Value="@request.Description" class="form-control" />
+			<InputTextArea @bind-Value="@request.Description" class="form-control" />
 			<ValidationMessage For="@(() => request.Description)" />
 		</div>
+		<br />
 		<div class="form-group">
 			<label>Value for money:</label>
-			<InputNumber @bind-Value="@request.Value" class="form-control" />
+			<div class="star-rating">
+				@for (int i = 1; i <= 5; i++)
+				{
+					var rating = i;
+					<span class="star @(rating <= request.Value ? "filled" : "")"
+						  @onclick="() => SetRating(rating, nameof(request.Value))">
+						&#9733;
+					</span>
+				}
+			</div>
+			<input type="hidden" @bind-value="request.Value" />
 			<ValidationMessage For="@(() => request.Value)" />
 		</div>
+		<br />
 		<div class="form-group">
-			<label>Battery life:</label>
-			<InputNumber @bind-Value="@request.BatteryLife" class="form-control" />
+			<label>Battery Life:</label>
+			<div class="star-rating">
+				@for (int i = 1; i <= 5; i++)
+				{
+					var rating = i;
+					<span class="star @(rating <= request.BatteryLife ? "filled" : "")"
+						  @onclick="() => SetRating(rating, nameof(request.BatteryLife))">
+						&#9733;
+					</span>
+				}
+			</div>
+			<input type="hidden" @bind-value="request.BatteryLife" />
 			<ValidationMessage For="@(() => request.BatteryLife)" />
 		</div>
+		<br />
 		<div class="form-group">
 			<label>Performance:</label>
-			<InputNumber @bind-Value="@request.Performance" class="form-control" />
+			<div class="star-rating">
+				@for (int i = 1; i <= 5; i++)
+				{
+					var rating = i;
+					<span class="star @(rating <= request.Performance ? "filled" : "")"
+						  @onclick="() => SetRating(rating, nameof(request.Performance))">
+						&#9733;
+					</span>
+				}
+			</div>
+			<input type="hidden" @bind-value="request.Performance" />
 			<ValidationMessage For="@(() => request.Performance)" />
 		</div>
+		<br />
 		<div class="form-group">
 			<label>User Friendliness:</label>
-			<InputNumber @bind-Value="@request.UserFriendly" class="form-control" />
+			<div class="star-rating">
+				@for (int i = 1; i <= 5; i++)
+				{
+					var rating = i;
+					<span class="star @(rating <= request.UserFriendly ? "filled" : "")"
+						  @onclick="() => SetRating(rating, nameof(request.UserFriendly))">
+						&#9733;
+					</span>
+				}
+			</div>
+			<input type="hidden" @bind-value="request.UserFriendly" />
 			<ValidationMessage For="@(() => request.UserFriendly)" />
 		</div>
-		@if (request.Id > 0)
-		{
-			<div class="form-group">
-				<label>Date of comment:</label>
-				<InputDate @bind-Value="@request.DateCreated" class="form-control" />
-				<ValidationMessage For="@(() => request.DateCreated)" />
-			</div>
-	}
-	</fieldset>
-
-	@if (!Disabled)
-	{
-		<button type="submit" class="btn btn-primary">
-			@ButtonText
-		</button>
-	}
-	
-</EditForm>
-
-
-@code {
-	[Parameter] public bool Disabled { get; set; }
-	[Parameter] public Request? request { get; set; }
-	[Parameter] public string ButtonText { get; set; } = "Save";
-	[Parameter] public EventCallback OnValidSubmit { get; set; }
-
-	private IList<Review>? Reviews;
-	protected async override Task OnInitializedAsync()
-	{
-		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
-	}
-} *@
-
-@inject HttpClient _client
-
-<EditForm Model="@request" OnValidSubmit="@OnValidSubmit">
-	<DataAnnotationsValidator />
-	<ValidationSummary />
-	<fieldset disabled="@Disabled">
-		<div class="form-group">
-			<label>Review Title:</label>
-			<InputText @bind-Value="@request.Title" class="form-control" />
-			<ValidationMessage For="@(() => request.Title)" />
-		</div>
-		<div class="form-group">
-			<label>Description:</label>
-			<InputText @bind-Value="@request.Description" class="form-control" />
-			<ValidationMessage For="@(() => request.Description)" />
-		</div>
-		<div class="form-group">
-			<label>Value for money:</label>
-			<div>
-				<InputRadioGroup @bind-Value="@request.Value" class="form-control">
-					<InputRadio Value="0" /> 0
-					<InputRadio Value="1" /> 1
-					<InputRadio Value="2" /> 2
-					<InputRadio Value="3" /> 3
-					<InputRadio Value="4" /> 4
-					<InputRadio Value="5" /> 5
-				</InputRadioGroup>
-				@* @foreach(var rate in RatingValue)
-				{
-				<div>
-				<span @onclick="() => SetRating(rate)" class="bi bi-star-fill @(review.Value >= rate ? "#FFD700" : "")"></span>
-				</div>
-				} *@
-				<ValidationMessage For="@(() => request.Value)" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Battery life:</label>
-			<div>
-				<InputRadioGroup @bind-Value="@request.BatteryLife" class="form-control">
-					<InputRadio Value="0" /> 0
-					<InputRadio Value="1" /> 1
-					<InputRadio Value="2" /> 2
-					<InputRadio Value="3" /> 3
-					<InputRadio Value="4" /> 4
-					<InputRadio Value="5" /> 5
-				</InputRadioGroup>
-				<ValidationMessage For="@(() => request.BatteryLife)" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Performance:</label>
-			<div>
-				<InputRadioGroup @bind-Value="@request.Performance" class="form-control">
-					<InputRadio Value="0" /> 0
-					<InputRadio Value="1" /> 1
-					<InputRadio Value="2" /> 2
-					<InputRadio Value="3" /> 3
-					<InputRadio Value="4" /> 4
-					<InputRadio Value="5" /> 5
-				</InputRadioGroup>
-				<ValidationMessage For="@(() => request.Performance)" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label>User Friendliness:</label>
-			<div>
-				<InputRadioGroup @bind-Value="@request.UserFriendly" class="form-control">
-					<InputRadio Value="0" /> 0
-					<InputRadio Value="1" /> 1
-					<InputRadio Value="2" /> 2
-					<InputRadio Value="3" /> 3
-					<InputRadio Value="4" /> 4
-					<InputRadio Value="5" /> 5
-				</InputRadioGroup>
-				<ValidationMessage For="@(() => request.UserFriendly)" />
-			</div>
-		</div>
+		<br />
 		@if (!Disabled)
 		{
 			<div class="form-group">
@@ -167,8 +88,7 @@
 				<ValidationMessage For="@(() => request.Image)" />
 			</div>
 		}
-
-
+		<br />
 
 	</fieldset>
 
@@ -187,20 +107,10 @@
 	[Parameter] public EventCallback OnValidSubmit { get; set; }
 	private IList<Product>? Products;
 
-	// List<int> RatingValue = new List<int>
-	// {
-	// 	0,1,2,3,4,5
-	// };
-
 	protected async override Task OnInitializedAsync()
 	{
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");
 	}
-
-	// private void SetRating(int value)
-	//    {
-	//        review.Value = value;
-	//    }
 
 	private async Task OnFileChange(InputFileChangeEventArgs e)
 	{
@@ -218,6 +128,25 @@
 		request.Image = imageData;
 
 		Console.WriteLine(request.Image);
+	}
+
+	private void SetRating(int rating, string propertyName)
+	{
+		switch (propertyName)
+		{
+			case nameof(Request.Value):
+				request.Value = rating;
+				break;
+			case nameof(Request.BatteryLife):
+				request.BatteryLife = rating;
+				break;
+			case nameof(Request.Performance):
+				request.Performance = rating;
+				break;
+			case nameof(Request.UserFriendly):
+				request.UserFriendly = rating;
+				break;
+		}
 	}
 }
 

@@ -4,9 +4,20 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IJSRuntime js
 @inject HttpInterceptorService _interceptor
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<h3>Viewing @product.Name</h3>
-
+@if (Categories != null)
+{
+	@foreach (var category in Categories.Where(c => c.Id == product.CategoryId))
+	{
+		<a href="/categories/@category.Name.ToLower()" class="bi bi-arrow-left-short">Back to @category.Name page</a>
+	}
+}
+<br />
+<br />
 
 @if (double.IsNaN(@CalculateProductAvg(Reviews)))
 {
@@ -26,27 +37,64 @@ else
 	}
 
 }
-
-
-
 <br />
 <button @onclick=ReviewPage class="btn btn-secondary">Write a review</button>
 <br/>
 <br />
 
-<div><img src="@product.Image" width="500" /></div>
-
-<FormComponent product="product" Disabled="true" />
-
-@if(Categories != null)
-{
-	@foreach(var category in Categories.Where(c=>c.Id==product.CategoryId))
-    {
-		<a href="/categories/@category.Name.ToLower()" class="btn btn-secondary">Back to @category.Name page</a>
-    }
-}
-
-
+<section class="product">
+	<div class="description">
+		<div id="carouselExampleDark" class="carousel carousel-dark slide">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active" data-bs-interval="10000">
+					<img src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-13-finish-unselect-gallery-1-202207_FMT_WHH?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1654894166228" class="d-block w-100 object-fit-fill" height="100%" alt="iphone-13-all-colours">
+					<div class="carousel-caption d-none d-md-block">
+					</div>
+				</div>
+				<div class="carousel-item" data-bs-interval="2000">
+					<img src="..." class="d-block w-100" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="..." class="d-block w-100" alt="...">
+					<div class="carousel-caption d-none d-md-block">
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<div class="product-details">
+			<h2 class="title">@product.Name</h2>
+			<h3><span class="pricing">$750</span></h3>
+			<div class="colours">
+				<p>Available colours</p>
+			</div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
+			dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
+			officia deserunt mollit anim id est laborum.</p>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+				dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+				officia deserunt mollit anim id est laborum.
+			</p>
+		</div>
+	</div>
+</section>
 
 <div class="review-section">
 @foreach (var review in Reviews ?? Enumerable.Empty<Review>())
@@ -111,9 +159,12 @@ else
 @code {
 	[Parameter] public int Id { get; set; }
 	Product? product = new Product();
+	Category? productCat = new Category();
+	Brand? brand = new Brand();
 	private List<Review>? Reviews;
 	private List<Category>? Categories;
 	private List<Product>? Products;
+	private List<Brand>? Brands;
 	private List<double> AverageRating = new List<double>();
 	private string? UserName;
 	private List<Review>? filteredReviews;
@@ -124,6 +175,7 @@ else
 		product = await _client.GetFromJsonAsync<Product>($"{Endpoints.ProductsEndpoint}/{Id}");
 		Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
 		Categories = await _client.GetFromJsonAsync<List<Category>>($"{Endpoints.CategoriesEndpoint}");
+		Brands = await _client.GetFromJsonAsync<List<Brand>> ($"{Endpoints.BrandsEndpoint}");
 		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 		UserName = authState.User.Identity.Name;
 		Products = await _client.GetFromJsonAsync<List<Product>>($"{Endpoints.ProductsEndpoint}");

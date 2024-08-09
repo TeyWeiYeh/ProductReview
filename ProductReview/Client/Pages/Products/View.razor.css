@@ -3,6 +3,12 @@
     width: 450px;
 }
 
+h5 {
+    font-family: "Lilita One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .review-section {
     margin: 0;
     padding: 0;
@@ -101,6 +107,40 @@ padding: 0px;
 
 .card .img{
     width: 200px;
+}
+
+.description {
+    display: grid;
+    grid-template: 800px / 2fr 1fr;
+    gap: 10px;
+    
+}
+
+.product-details {
+    display: grid;
+    grid-template: auto auto 200px auto auto / 1fr;
+    border: 1px solid black;
+    text-align: center;
+    font-family: "Lilita One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.product-details p{
+    padding: 5%;
+}
+
+.product-details .title {
+    font-size: 3rem;
+}
+
+.product-details .pricing {
+    font-size: 2rem;
+}
+
+.product-details .colours {
+    border: 1px solid black;
+    font-size: 1.5rem;
 }
 
 
